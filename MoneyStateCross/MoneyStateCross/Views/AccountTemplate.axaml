@@ -1,0 +1,26 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:MoneyStateCross.Views"
+        xmlns:entities="clr-namespace:MoneyStateCross.Models.Entities"
+        x:DataType="entities:Account">
+    <Design.PreviewWith>
+        <controls:AccountTemplate />
+    </Design.PreviewWith>
+    <Design.DataContext>
+        <entities:Account/>
+    </Design.DataContext>
+    <Style Selector="controls|AccountTemplate">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Button Command="{TemplateBinding Command, Mode=TwoWay}"
+                        CommandParameter="{Binding}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name} " />
+                        <TextBlock Text="{Binding Balance}"/>
+                    </StackPanel>
+                </Button>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

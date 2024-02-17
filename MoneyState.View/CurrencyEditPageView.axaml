@@ -1,0 +1,37 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+             xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyState.View.CurrencyEditPageView"
+             x:DataType="viewModel:CurrencyEditPageViewModel">
+    <Design.DataContext>
+        <viewModel:CurrencyEditPageViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Назва валюти"/>
+            <TextBox Text="{Binding NewName}"/>
+            <TextBlock Text="Кількість гривень в одиниці"/>
+            <TextBox Text="{Binding NewRatio}"/>
+            <TextBlock Text="{Binding ErrorMessage}"/>
+            <Button Command="{Binding Insert}">Додати</Button>
+            <Button Command="{Binding Update}">Оновити</Button>
+            <Button Command="{Binding Remove}">Видалити</Button>
+            <Button Command="{Binding Back}">Назад</Button>
+        </StackPanel>
+        <ListBox ItemsSource="{Binding CurrencyContainer.Currencies, Mode=TwoWay}"
+                 SelectedItem="{Binding CurrentCurrency}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="entities:Currency">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name, StringFormat='Назва: {0}'}   "/>
+                        <TextBlock Text="{Binding RatioToUah, StringFormat='Кількість гривень: {0}'}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</UserControl>

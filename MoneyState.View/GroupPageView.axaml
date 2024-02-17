@@ -1,0 +1,50 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+             xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyState.View.GroupPageView"
+             x:DataType="viewModel:GroupPageViewModel">
+    <Design.DataContext>
+        <viewModel:GroupPageViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <Button Command="{Binding GoEditGroupPage}">Редагувати групи</Button>
+            <Button Command="{Binding GoEditGroupPage}">Додати рахунок</Button>
+            <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
+        </StackPanel>
+        <TabControl ItemsSource="{Binding GroupContainer.Groups}">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="entities:Group">
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="entities:Group">
+                    <ListBox ItemsSource="{Binding Accounts}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="entities:Account">
+                                <Button>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Balance}"/>
+                                        <TextBlock Text="{Binding Currency.Name, FallbackValue=?}"/>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+        <!--<ListBox ItemsSource="{Binding GroupContainer.Groups}">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="entities:Group">
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+    </DockPanel>
+</UserControl>

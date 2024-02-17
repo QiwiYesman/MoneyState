@@ -1,0 +1,38 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:MoneyStateCross.ViewModels"
+             xmlns:entities="clr-namespace:MoneyStateCross.Models.Entities"
+             xmlns:views="clr-namespace:MoneyStateCross.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyStateCross.Views.GroupsView"
+             x:DataType="viewModels:GroupsViewModel">
+    <Design.DataContext>
+        <viewModels:GroupsViewModel/>
+    </Design.DataContext>
+    <StackPanel Name="List">
+        <ListBox ItemsSource="{Binding Groups^}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="entities:Group">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Name}"/>
+                        <ListBox ItemsSource="{Binding Accounts}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate >
+                                    <views:AccountTemplate Command="{Binding 
+                                    $parent[ListBox;1].((viewModels:GroupsViewModel)DataContext).EditAccount}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal">
+            <Button Command="{Binding AddAccount}">Додати рахунок</Button>
+            <Button>Виконати операцію</Button>
+            <Button Command="{Binding EditGroups}">Групи</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
