@@ -2,13 +2,8 @@
 
 namespace MoneyState.Model.Entities;
 
-public class EntityBase
+public interface IEntity
 {
     [PrimaryKey, AutoIncrement] 
-    public int Id { get; set; } = 0;
-
-    public EntityBase()
-    {
-        
-    }
+    public int Id { get; set; }
 }

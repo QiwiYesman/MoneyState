@@ -1,5 +1,7 @@
-﻿using MoneyState.Model.Containers;
+﻿using System.Collections.ObjectModel;
+using MoneyState.Model.Containers;
 using MoneyState.Model.Entities;
+using MoneyState.ViewModel.ObservableEntities;
 using ReactiveUI;
 
 namespace MoneyState.ViewModel;
@@ -10,10 +12,15 @@ public class CurrencyEditPageViewModel: PageBase
     public CurrencyEditPageViewModel()
     {
         CurrencyContainer = new(); 
-        this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
     }
-    public Action<Currency> OnRemovedCurrency;
-    public CurrencyContainer CurrencyContainer { get; set; }
+
+    public CurrencyEditPageViewModel(CurrencyContainer<ObservableCurrency> currencyContainer)
+    {
+        CurrencyContainer = currencyContainer;
+    }
+    public CurrencyContainer<ObservableCurrency> CurrencyContainer { get; set; }
+
+    public Collection<ObservableCurrency> Currencies => CurrencyContainer.Collection;
     
     private string _newName = "";
 
@@ -38,9 +45,9 @@ public class CurrencyEditPageViewModel: PageBase
         set => this.RaiseAndSetIfChanged(ref _errorMessage, value);
     }
 
-    private Currency _currentCurrency;
+    private ObservableCurrency _currentCurrency;
 
-    public Currency CurrentCurrency
+    public ObservableCurrency CurrentCurrency
     {
         get => _currentCurrency;
         set => this.RaiseAndSetIfChanged(ref _currentCurrency, value);
@@ -54,7 +61,7 @@ public class CurrencyEditPageViewModel: PageBase
             return;
         };
         CurrencyContainer.Insert(NewName, ratio);
-        this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
+        //this.RaisePropertyChanged(nameof(Currencies));
     }
 
     public bool TryUahEdit() => CurrentCurrency.Name == "UAH";
@@ -72,7 +79,7 @@ public class CurrencyEditPageViewModel: PageBase
             return;
         };
         //CurrencyContainer.Update(CurrentCurrency, NewName, ratio);
-        this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
+        //this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
     }
     public void Remove()
     {
@@ -81,9 +88,9 @@ public class CurrencyEditPageViewModel: PageBase
             ErrorMessage = "Не можна видаляти гривню!";
             return;
         }
-        //CurrencyContainer.Delete(CurrentCurrency.Id);
+        CurrencyContainer.Delete(CurrentCurrency.Id);
         //CurrencyContainer.Read();
-        this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
+        //this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
         //OnRemovedCurrency?.Invoke(CurrentCurrency);
     }
     

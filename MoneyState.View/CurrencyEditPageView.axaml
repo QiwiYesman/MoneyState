@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
              xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
+             xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MoneyState.View.CurrencyEditPageView"
              x:DataType="viewModel:CurrencyEditPageViewModel">
@@ -22,10 +23,10 @@
             <Button Command="{Binding Remove}">Видалити</Button>
             <Button Command="{Binding Back}">Назад</Button>
         </StackPanel>
-        <ListBox ItemsSource="{Binding CurrencyContainer.Currencies, Mode=TwoWay}"
+        <ListBox ItemsSource="{Binding CurrencyContainer.Collection, Mode=TwoWay}"
                  SelectedItem="{Binding CurrentCurrency}">
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="entities:Currency">
+                <DataTemplate DataType="observableEntities:ObservableCurrency">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Name, StringFormat='Назва: {0}'}   "/>
                         <TextBlock Text="{Binding RatioToUah, StringFormat='Кількість гривень: {0}'}"/>

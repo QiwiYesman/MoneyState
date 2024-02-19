@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using MoneyState.Model.Containers;
 using MoneyState.Model.Entities;
+using MoneyState.ViewModel.ObservableEntities;
 using ReactiveUI;
 
 namespace MoneyState.ViewModel;
@@ -8,10 +10,9 @@ namespace MoneyState.ViewModel;
 public class GroupEditPageViewModel: PageBase
 {
 
-    public GroupEditPageViewModel(GroupContainer container)
+    public GroupEditPageViewModel(GroupContainer<ObservableGroup> container)
     {
         GroupContainer = container;
-        Groups = new(GroupContainer.Groups);
         SetCurrentGroupToFirst();
     }
     public GroupEditPageViewModel()
@@ -27,25 +28,15 @@ public class GroupEditPageViewModel: PageBase
     {
         ErrorText = message;
     }
-
-    public void RefreshGroups()
-    {
-        this.RaisePropertyChanged(nameof(GroupContainer.Groups));
-    }
+    
 
     public void RefreshGroup(Group group)
     {
         this.RaisePropertyChanged();
     }
 
-    private ObservableCollection<Group> _groups;
-    public ObservableCollection<Group> Groups
-    {
-        get => _groups;
-        set => this.RaiseAndSetIfChanged(ref _groups, value);
-    }
-
-    public GroupContainer GroupContainer { get; set; }
+    private Collection<ObservableGroup> Groups => GroupContainer.Collection;
+    public GroupContainer<ObservableGroup> GroupContainer { get; set; }
     
     private string _newName = "";
     public string NewName
@@ -61,9 +52,9 @@ public class GroupEditPageViewModel: PageBase
         set => this.RaiseAndSetIfChanged(ref _errorText, value);
     }
 
-    private Group _currentGroup;
+    private ObservableGroup _currentGroup;
 
-    public Group CurrentGroup
+    public ObservableGroup CurrentGroup
     {
         get => _currentGroup;
         set => this.RaiseAndSetIfChanged(ref _currentGroup, value);
@@ -86,9 +77,6 @@ public class GroupEditPageViewModel: PageBase
     public void Update()
     {
         GroupContainer.Update(CurrentGroup, NewName);
-        Groups = new (GroupContainer.Groups);
-        this.RaisePropertyChanged(nameof(GroupContainer.Groups));
-        this.RaisePropertyChanged(nameof(Groups));
         ErrorText = "";
      
     }

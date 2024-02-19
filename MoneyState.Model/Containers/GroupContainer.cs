@@ -4,31 +4,24 @@ using MoneyState.Model.Entities;
 
 namespace MoneyState.Model.Containers;
 
-public class GroupContainer
+public class GroupContainer<TGroup> : EntityContainerBase<TGroup> where TGroup: IGroup, new()
 {
-    public GroupContainer(MainContainer mainContainer)
-    {
-        MainContainer = mainContainer;
-    }
-    public MainContainer MainContainer { get; set; }
-    public Collection<Group> Groups => MainContainer.Groups;
-    
     public void Insert(string newName)
     {
-        var group = CrudOperations.InsertGroup(newName);
-        Groups.Add(group);
+        var group = CrudOperations.InsertGroup<TGroup>(newName);
+        Collection.Add(group);
     }
     
-    public void Update(Group group, string newName)
+    public void Update(TGroup group, string newName)
     {
         group.Name = newName;
         CrudOperations.Update(group);
     }
     
-    public void Delete(Group group)
+    public void Delete(TGroup group)
     {
-        CrudOperations.Delete<Group>(group.Id);
-        Groups.Remove(group);
+        CrudOperations.Delete<TGroup>(group.Id);
+        Collection.Remove(group);
     }
     
     

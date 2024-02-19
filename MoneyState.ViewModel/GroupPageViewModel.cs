@@ -1,12 +1,22 @@
 ﻿using MoneyState.Model.Containers;
 using MoneyState.Model.Entities;
+using MoneyState.ViewModel.ObservableEntities;
 using ReactiveUI;
 
 namespace MoneyState.ViewModel;
 
 public class GroupPageViewModel: PageBase
 {
-    public GroupContainer GroupContainer { get; set; }
+    public GroupPageViewModel()
+    {
+        
+    }
+
+    public GroupPageViewModel(GroupContainer<ObservableGroup> groupContainer)
+    {
+        GroupContainer = groupContainer;
+    }
+    public GroupContainer<ObservableGroup> GroupContainer { get; set; }
     
 
     public void GoEditGroupPage()
@@ -17,9 +27,8 @@ public class GroupPageViewModel: PageBase
     
     public void GoEditCurrencyPage()
     {
-        var page = new CurrencyEditPageViewModel()
+        var page = new CurrencyEditPageViewModel(Display.CurrencyContainer)
         {
-            OnRemovedCurrency = (v)=>{}
         };
         LoadPage(page);
     }

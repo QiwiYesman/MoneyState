@@ -1,55 +1,37 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
+using Microsoft.VisualBasic;
 using MoneyState.Model.DatabaseOperations;
 using MoneyState.Model.Entities;
-using Group = MoneyState.Model.Entities.Group;
 
 namespace MoneyState.Model.Containers;
 
-public class MainContainer
+public static class MainContainer
 {
-    public Collection<Group> Groups { get; set; } = new();
-    public Collection<Account> Accounts { get; set; } = new();
-    public Collection<Currency> Currencies { get; set; } = new();
+    
 
-    public void Init()
-    {
-        ReadAccountsFromDb();
-        ReadGroupsFromDb();
-        ReadCurrenciesFromDb();
-        ConnectAccountsAndGroups();
-        ConnectAccountsAndCurrencies();
-    }
-
-    public void SetCollection<T>(Collection<T> collection, IEnumerable<T> newCollection)
-    {
-        collection.Clear();
-        foreach (var readAccount in newCollection)
+    public static void ConnectAccountsAndGroups<TGroup, TAccount>(Collection<TGroup> groups, Collection<TAccount> accounts)
+        where TGroup: IGroup
+        where TAccount: IAccount
+    {   
+        foreach (var group in groups)
         {
-            collection.Add(readAccount);
-        } 
-    }
-
-    public void ConnectAccountsAndGroups()
-    {
-        foreach (var group in Groups)
-        {
-            SetCollection(group.Accounts, Accounts.Where(x => x.GroupId == group.Id));
+            var relatedAccounts = accounts.Where(x => x.GroupId == group.Id);
+            group.Accounts.Clear();
+            foreach (var account in relatedAccounts)
+            {
+                group.Accounts.Add(account);
+            }
         }
     }
 
-    public void ConnectAccountsAndCurrencies()
+    public static void ConnectAccountsAndCurrencies<TAccount, TCurrency>(Collection<TAccount> accounts, Collection<TCurrency> currencies)
+        where TAccount: class, IAccount 
+        where TCurrency: ICurrency
     {
-        foreach (var account in Accounts)
+        foreach (var account in accounts)
         {
-            account.Currency = Currencies.First(x => x.Id == account.CurrencyId);
+            account.Currency = currencies.First(x => x.Id == account.CurrencyId);
         }
     }
-    public void ReadAccountsFromDb() =>
-        SetCollection(Accounts,CrudOperations.GetArray<Account>());
-
-    public void ReadGroupsFromDb() => 
-        SetCollection(Groups,  CrudOperations.GetArray<Group>());
-
-    public void ReadCurrenciesFromDb() => 
-        SetCollection(Currencies, CrudOperations.GetArray<Currency>());
 }

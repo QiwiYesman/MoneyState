@@ -4,27 +4,25 @@ using MoneyState.Model.Entities;
 
 namespace MoneyState.Model.Containers;
 
-public class CurrencyContainer
+public class CurrencyContainer<TCurrency> : EntityContainerBase<TCurrency> where TCurrency: ICurrency, new()
 {
-    public MainContainer MainContainer { get; set; }
-    public Collection<Currency> Currencies => MainContainer.Currencies;
 
     public void Insert(string newName, float ratio)
     {
-        var inserted = CrudOperations.InsertCurrency(newName, ratio);
-        Currencies.Add(inserted); 
+        var inserted = CrudOperations.InsertCurrency<TCurrency>(newName, ratio);
+        Collection.Add(inserted); 
     }
     
 
-    public void Update(Currency currency)
+    public void Update(TCurrency currency)
     {
         CrudOperations.Update(currency);
     }
     
-    public void Delete(Currency currency)
+    public void Delete(TCurrency currency)
     {
-        CrudOperations.Delete<Currency>(currency.Id);
-        Currencies.Remove(currency);
+        CrudOperations.Delete<TCurrency>(currency.Id);
+        Collection.Remove(currency);
     }
     
 }

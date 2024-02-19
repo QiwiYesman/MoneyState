@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
              xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
+             xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MoneyState.View.GroupPageView"
              x:DataType="viewModel:GroupPageViewModel">
@@ -16,17 +17,17 @@
             <Button Command="{Binding GoEditGroupPage}">Додати рахунок</Button>
             <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
         </StackPanel>
-        <TabControl ItemsSource="{Binding GroupContainer.Groups}">
+        <TabControl ItemsSource="{Binding GroupContainer.Collection}">
             <TabControl.ItemTemplate>
-                <DataTemplate DataType="entities:Group">
+                <DataTemplate DataType="observableEntities:ObservableGroup">
                     <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
-                <DataTemplate DataType="entities:Group">
+                <DataTemplate DataType="observableEntities:ObservableGroup">
                     <ListBox ItemsSource="{Binding Accounts}">
                         <ListBox.ItemTemplate>
-                            <DataTemplate DataType="entities:Account">
+                            <DataTemplate DataType="observableEntities:ObservableAccount">
                                 <Button>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Balance}"/>

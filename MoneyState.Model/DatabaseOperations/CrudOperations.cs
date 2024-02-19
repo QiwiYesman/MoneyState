@@ -5,34 +5,35 @@ namespace MoneyState.Model.DatabaseOperations;
 
 public static class CrudOperations
 {
-    public static T[] GetArray<T>() where T: EntityBase, new()
+    public static TEntity[] GetArray<TEntity>() where TEntity: new()
     {
         using var connection = Database.ReadonlyConnection();
-        return connection.Table<T>().ToArray();
+        return connection.Table<TEntity>().ToArray();
     }
 
-    public static T GetSingle<T>(int id) where T : EntityBase, new()
+    public static TEntity GetSingle<TEntity>(int id) where TEntity : IEntity, new()
     {
         using var connection = Database.ReadonlyConnection();
-        return connection.Table<T>().First(x => x.Id == id);
+        return connection.Table<TEntity>().First(x => x.Id == id);
     }
 
-    public static void Delete<T>(int id) where T : EntityBase
+    public static void Delete<TEntity>(int id) where TEntity : IEntity
     {
         using var connection = Database.ExistingConnection();
-        connection.Delete<T>(id);
+        connection.Delete<TEntity>(id);
     }
 
-    public static void Update<T>(T obj) where T : EntityBase
+    public static void Update<TEntity>(TEntity obj) where TEntity : IEntity
     {
         using var connection = Database.ExistingConnection();
         connection.Update(obj);
     }
 
-    public static Group InsertGroup(string groupName)
+    public static TGroup InsertGroup<TGroup>(string groupName)
+        where TGroup: IGroup, new()
     {
         using var connection = Database.ExistingConnection();
-        var group = new Group()
+        var group = new TGroup
         {
             Id = 0,
             Name = groupName
@@ -41,10 +42,11 @@ public static class CrudOperations
         return group;
     }
 
-    public static Currency InsertCurrency(string currencyName, float ratioConversion)
+    public static TCurrency InsertCurrency<TCurrency>(string currencyName, float ratioConversion)
+        where TCurrency: ICurrency, new()
     {
         using var connection = Database.ExistingConnection();
-        var currency = new Currency()
+        var currency = new TCurrency
         {
             Id = 0,
             Name = currencyName,
@@ -54,10 +56,11 @@ public static class CrudOperations
         return currency;
     }
     
-    public static Account InsertAccount(string name, int groupId, int currencyId)
+    public static TAccount InsertAccount<TAccount>(string name, int groupId, int currencyId)
+        where TAccount: IAccount, new()
     {
         using var connection = Database.ExistingConnection();
-        var account = new Account
+        var account = new TAccount
         {
             Name = name,
             GroupId = groupId,

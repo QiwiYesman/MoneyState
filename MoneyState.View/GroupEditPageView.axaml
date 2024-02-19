@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
              xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
+             xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MoneyState.View.GroupEditPageView"
              x:DataType="viewModel:GroupEditPageViewModel">
@@ -20,10 +21,10 @@
             <Button Command="{Binding Back}">Назад</Button>
         </StackPanel>
         <ListBox 
-            ItemsSource="{Binding GroupContainer.Groups, Mode=TwoWay}"
+            ItemsSource="{Binding GroupContainer.Collection, Mode=TwoWay}"
             SelectedItem="{Binding CurrentGroup}">
             <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="entities:Group">
+                <DataTemplate x:DataType="observableEntities:ObservableGroup">
                     <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>

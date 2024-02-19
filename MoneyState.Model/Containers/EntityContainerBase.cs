@@ -1,7 +1,19 @@
-﻿namespace MoneyState.Model.Containers;
+﻿using System.Collections.ObjectModel;
+using MoneyState.Model.DatabaseOperations;
 
-public abstract class EntityContainerBase
+namespace MoneyState.Model.Containers;
+
+public class EntityContainerBase<TEntity> where TEntity: new()
 {
-    public abstract void Read();
-    public abstract void Delete(int id);
+    public Collection<TEntity> Collection { get; set; }
+    public void ReadFromDb()
+    {
+        var array = CrudOperations.GetArray<TEntity>();
+        Collection.Clear();
+        foreach (var entity in array)
+        {
+            Collection.Add(entity);
+        }
+    }
+    public void Delete(int id) {}
 }

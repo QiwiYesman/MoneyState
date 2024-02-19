@@ -2,13 +2,8 @@
 
 namespace MoneyState.Model.Entities;
 
-public class Currency: EntityBase
+public interface ICurrency: IEntity
 {
-    public string Name { get; set; } = "UAH";
-    public float RatioToUah { get; set; } = 1.0f;
-
-    public override string ToString()
-    {
-        return Name + " " + RatioToUah;
-    }
+    public string Name { get; set; }
+    public float RatioToUah { get; set; }
 }

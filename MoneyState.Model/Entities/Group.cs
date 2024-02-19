@@ -3,15 +3,11 @@ using SQLite;
 
 namespace MoneyState.Model.Entities;
 
-public class Group: EntityBase
+public interface IGroup: IEntity
 {
+    
+    public string Name { get; set; }
 
-    public string Name { get; set; } = "";
+    [Ignore] public Collection<IAccount> Accounts { get; set; }
 
-    [Ignore] public Collection<Account> Accounts { get; set; } = new();
-
-    public override string ToString()
-    {
-        return $"Group '{Name}'";
-    }
 }
