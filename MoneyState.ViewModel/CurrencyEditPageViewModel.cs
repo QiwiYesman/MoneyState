@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using MoneyState.Model.Containers;
-using MoneyState.Model.Entities;
 using MoneyState.ViewModel.ObservableEntities;
 using ReactiveUI;
 
 namespace MoneyState.ViewModel;
 
-public class CurrencyEditPageViewModel: PageBase
+public class CurrencyEditPageViewModel: EditPageBase
 {
 
     public CurrencyEditPageViewModel()
@@ -31,19 +30,13 @@ public class CurrencyEditPageViewModel: PageBase
     }
 
     private string _newRatio = "";
-    private string _errorMessage = "";
 
     public string NewRatio
     {
         get => _newRatio;
         set => this.RaiseAndSetIfChanged(ref _newRatio, value);
     }
-
-    public string ErrorMessage
-    {
-        get => _errorMessage;
-        set => this.RaiseAndSetIfChanged(ref _errorMessage, value);
-    }
+    
 
     private ObservableCurrency _currentCurrency;
 
@@ -52,46 +45,52 @@ public class CurrencyEditPageViewModel: PageBase
         get => _currentCurrency;
         set => this.RaiseAndSetIfChanged(ref _currentCurrency, value);
     }
-    
-    public void Insert()
+    public bool TryUahEdit() => CurrentCurrency.Name == "UAH";
+
+    public override void Insert()
     {
         if (!float.TryParse(NewRatio, out var ratio))
         {
             ErrorMessage = "Введіть десяткове число";
             return;
-        };
-        CurrencyContainer.Insert(NewName, ratio);
-        //this.RaisePropertyChanged(nameof(Currencies));
+        }
+        CurrencyContainer.Insert(NewName, ratio); 
     }
 
-    public bool TryUahEdit() => CurrentCurrency.Name == "UAH";
-
-    public void Update()
+  
+    public override void Update()
     {
         if (TryUahEdit())
         {
             ErrorMessage = "Не можна змінювати гривню!";
             return;
         }
-        if (!float.TryParse(NewRatio, out var ratio))
+
+        bool toEditName = !string.IsNullOrEmpty(NewName);
+        bool toEditRatio = !string.IsNullOrEmpty(NewRatio);
+        if (toEditRatio)
         {
-            ErrorMessage = "Введіть десяткове число";
-            return;
-        };
-        //CurrencyContainer.Update(CurrentCurrency, NewName, ratio);
-        //this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
+            if(!float.TryParse(NewRatio, out var ratio))
+            {
+                ErrorMessage = "Введіть десяткове число";
+                return; 
+            }
+            CurrentCurrency.RatioToUah = ratio;
+        }
+
+        if (toEditName)
+        {
+            CurrentCurrency.Name = NewName;    
+        }
+        CurrencyContainer.Update(CurrentCurrency);
     }
-    public void Remove()
+    public override void Remove()
     {
         if (TryUahEdit())
         {
             ErrorMessage = "Не можна видаляти гривню!";
             return;
         }
-        CurrencyContainer.Delete(CurrentCurrency.Id);
-        //CurrencyContainer.Read();
-        //this.RaisePropertyChanged(nameof(CurrencyContainer.Currencies));
-        //OnRemovedCurrency?.Invoke(CurrentCurrency);
+        CurrencyContainer.Delete(CurrentCurrency);
     }
-    
 }

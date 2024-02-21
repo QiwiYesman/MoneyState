@@ -11,26 +11,26 @@ public static class CrudOperations
         return connection.Table<TEntity>().ToArray();
     }
 
-    public static TEntity GetSingle<TEntity>(int id) where TEntity : IEntity, new()
+    public static TEntity GetSingle<TEntity>(int id) where TEntity : EntityBase, new()
     {
         using var connection = Database.ReadonlyConnection();
         return connection.Table<TEntity>().First(x => x.Id == id);
     }
 
-    public static void Delete<TEntity>(int id) where TEntity : IEntity
+    public static void Delete<TEntity>(int id) where TEntity : EntityBase
     {
         using var connection = Database.ExistingConnection();
         connection.Delete<TEntity>(id);
     }
 
-    public static void Update<TEntity>(TEntity obj) where TEntity : IEntity
+    public static void Update<TEntity>(TEntity obj) where TEntity : EntityBase
     {
         using var connection = Database.ExistingConnection();
         connection.Update(obj);
     }
 
     public static TGroup InsertGroup<TGroup>(string groupName)
-        where TGroup: IGroup, new()
+        where TGroup: Group, new()
     {
         using var connection = Database.ExistingConnection();
         var group = new TGroup
@@ -43,7 +43,7 @@ public static class CrudOperations
     }
 
     public static TCurrency InsertCurrency<TCurrency>(string currencyName, float ratioConversion)
-        where TCurrency: ICurrency, new()
+        where TCurrency: Currency, new()
     {
         using var connection = Database.ExistingConnection();
         var currency = new TCurrency
@@ -56,13 +56,14 @@ public static class CrudOperations
         return currency;
     }
     
-    public static TAccount InsertAccount<TAccount>(string name, int groupId, int currencyId)
-        where TAccount: IAccount, new()
+    public static TAccount InsertAccount<TAccount>(string name, float balance, int groupId, int currencyId)
+        where TAccount: Account, new()
     {
         using var connection = Database.ExistingConnection();
         var account = new TAccount
         {
             Name = name,
+            Balance = balance,
             GroupId = groupId,
             CurrencyId = currencyId
         }; 

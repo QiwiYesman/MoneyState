@@ -2,22 +2,21 @@
 using SQLite;
 namespace MoneyState.Model.Entities;
 
-public interface IAccount: IEntity
+[Table("Account")]
+public class Account: EntityBase
 {
-    [Required]
     [Indexed]
     public int CurrencyId { get; set; }
     
-    [Required]
     [Indexed]
     public int GroupId { get; set; } 
 
-    public string Name { get; set; }
-    public float Balance { get; set; }
+    public virtual string Name { get; set; }
+    public virtual float Balance { get; set; }
     
     [Ignore]
-    public ICurrency? Currency { get; set; }
+    public virtual Currency? Currency { get; set; }
     [Ignore]
-    public IGroup? Group { get; set; }
+    public virtual Group? Group { get; set; }
     
 }

@@ -4,9 +4,9 @@ using MoneyState.Model.Entities;
 
 namespace MoneyState.Model.Containers;
 
-public class AccountContainer<TAccount> :EntityContainerBase<TAccount> where TAccount: IAccount, new()
+public class AccountContainer<TAccount> :EntityContainerBase<TAccount> where TAccount: Account, new()
 {
-    public void ConvertAccountToCurrency(TAccount account, ICurrency newCurrency)
+    public void ConvertAccountToCurrency(TAccount account, Currency newCurrency)
     {
         account.Balance *= account.Currency?.RatioToUah ?? 1;
         account.Currency = newCurrency;
@@ -15,9 +15,9 @@ public class AccountContainer<TAccount> :EntityContainerBase<TAccount> where TAc
         Update(account);
     }
 
-    public void Insert(string newName, IGroup group, ICurrency currency)
+    public void Insert(string newName, float balance, Group group, Currency currency)
     {
-        var account = CrudOperations.InsertAccount<TAccount>(newName, group.Id, currency.Id);
+        var account = CrudOperations.InsertAccount<TAccount>(newName, balance, group.Id, currency.Id);
         account.Group = group;
         account.Currency = currency;
         group.Accounts.Add(account);

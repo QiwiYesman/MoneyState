@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using MoneyState.Model.Entities;
 using ReactiveUI;
 using SQLite;
@@ -6,18 +8,30 @@ using SQLite;
 namespace MoneyState.ViewModel.ObservableEntities;
 
 [Table("Group")]
-public class ObservableGroup: ReactiveObject, IGroup
+public class ObservableGroup: Group, INotifyPropertyChanged
 {
-   
-    [PrimaryKey, AutoIncrement]
-    public int Id { get; set; }
     private string _name = "";
-    public string Name
+    public override string Name
     {
         get => _name;
-        set => this.RaiseAndSetIfChanged(ref _name, value);
+        set => SetField(ref _name, value);
+    }
+    
+    [Ignore]
+    public override Collection<Account> Accounts { get; set; } = new ObservableCollection<Account>();
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    [Ignore]
-    public Collection<IAccount> Accounts { get; set; } = new ObservableCollection<IAccount>();
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
+    }
 }

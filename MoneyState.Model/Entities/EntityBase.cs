@@ -1,8 +1,9 @@
-﻿using SQLite;
+﻿using System.ComponentModel;
+using SQLite;
 
 namespace MoneyState.Model.Entities;
 
-public interface IEntity
+public class EntityBase
 {
     [PrimaryKey, AutoIncrement] 
     public int Id { get; set; }

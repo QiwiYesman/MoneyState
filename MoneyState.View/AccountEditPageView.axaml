@@ -1,0 +1,43 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyState.View.AccountEditPageView"
+             x:DataType="viewModel:AccountEditPageViewModel">
+    <Design.DataContext>
+        <viewModel:AccountEditPageViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Button Command="{Binding Insert}"
+                    IsVisible="{Binding IsNewAccount}">Додати</Button>
+            <Button Command="{Binding Remove}"
+                    IsVisible="{Binding !IsNewAccount}">Видалити</Button>
+            <Button Command="{Binding Update}"
+                    IsVisible="{Binding !IsNewAccount}">Оновити</Button>
+            <Button Command="{Binding Back}">Назад</Button>
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Назва рахунку"/>
+                <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Баланс"/>
+                <TextBox Text="{Binding Balance, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Група"/>
+                <ComboBox ItemsSource="{Binding GroupContainer.Collection }"
+                          SelectedItem="{Binding CurrentGroup}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Валюта"/>
+                <ComboBox ItemsSource="{Binding  CurrencyContainer.Collection }"
+                          SelectedItem="{Binding CurrentCurrency}"/>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

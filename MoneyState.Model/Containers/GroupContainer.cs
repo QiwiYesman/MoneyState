@@ -4,7 +4,7 @@ using MoneyState.Model.Entities;
 
 namespace MoneyState.Model.Containers;
 
-public class GroupContainer<TGroup> : EntityContainerBase<TGroup> where TGroup: IGroup, new()
+public class GroupContainer<TGroup> : EntityContainerBase<TGroup> where TGroup: Group, new()
 {
     public void Insert(string newName)
     {

@@ -4,10 +4,11 @@ using MoneyState.Model.Containers;
 using MoneyState.Model.Entities;
 using MoneyState.ViewModel.ObservableEntities;
 using ReactiveUI;
+using Group = MoneyState.Model.Entities.Group;
 
 namespace MoneyState.ViewModel;
 
-public class GroupEditPageViewModel: PageBase
+public class GroupEditPageViewModel: EditPageBase
 {
 
     public GroupEditPageViewModel(GroupContainer<ObservableGroup> container)
@@ -17,25 +18,14 @@ public class GroupEditPageViewModel: PageBase
     }
     public GroupEditPageViewModel()
     {
-        //SetCurrentGroupToFirst();
     }
     public void SetCurrentGroupToFirst()
     {
         CurrentGroup = Groups[0];
     }
     
-    public void SetError(string message)
-    {
-        ErrorText = message;
-    }
-    
 
-    public void RefreshGroup(Group group)
-    {
-        this.RaisePropertyChanged();
-    }
-
-    private Collection<ObservableGroup> Groups => GroupContainer.Collection;
+    public Collection<ObservableGroup> Groups => GroupContainer.Collection;
     public GroupContainer<ObservableGroup> GroupContainer { get; set; }
     
     private string _newName = "";
@@ -45,12 +35,7 @@ public class GroupEditPageViewModel: PageBase
         set => this.RaiseAndSetIfChanged(ref _newName, value);
     }
 
-    private string _errorText = "";
-    public string ErrorText
-    {
-        get => _errorText;
-        set => this.RaiseAndSetIfChanged(ref _errorText, value);
-    }
+   
 
     private ObservableGroup _currentGroup;
 
@@ -61,23 +46,23 @@ public class GroupEditPageViewModel: PageBase
     }
 
 
-    public void Insert()
+    public override void Insert()
     {
         GroupContainer.Insert(NewName);
-        ErrorText = "";
+        ErrorMessage = "";
     }
 
-    public void Remove()
+    public override void Remove()
     {
         GroupContainer.Delete(CurrentGroup);
-        ErrorText = "";
+        ErrorMessage = "";
         SetCurrentGroupToFirst();
     }
 
-    public void Update()
+    public override void Update()
     {
         GroupContainer.Update(CurrentGroup, NewName);
-        ErrorText = "";
-     
+        ErrorMessage = "";
     }
+    
 }

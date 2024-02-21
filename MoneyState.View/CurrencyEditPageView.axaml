@@ -18,12 +18,12 @@
             <TextBlock Text="Кількість гривень в одиниці"/>
             <TextBox Text="{Binding NewRatio}"/>
             <TextBlock Text="{Binding ErrorMessage}"/>
-            <Button Command="{Binding Insert}">Додати</Button>
-            <Button Command="{Binding Update}">Оновити</Button>
-            <Button Command="{Binding Remove}">Видалити</Button>
+            <Button Command="{Binding InsertAsync}">Додати</Button>
+            <Button Command="{Binding UpdateAsync}">Оновити</Button>
+            <Button Command="{Binding RemoveAsync}">Видалити</Button>
             <Button Command="{Binding Back}">Назад</Button>
         </StackPanel>
-        <ListBox ItemsSource="{Binding CurrencyContainer.Collection, Mode=TwoWay}"
+        <ListBox ItemsSource="{Binding Currencies, Mode=TwoWay}"
                  SelectedItem="{Binding CurrentCurrency}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="observableEntities:ObservableCurrency">

@@ -6,8 +6,8 @@ namespace MoneyState.Model.DatabaseOperations;
 
 public static class Database
 {
-    private const string DefaultPath="db2.db";
-    public static bool Init(Type[] types)
+    private const string DefaultPath="db3.db";
+    public static bool Init()
     {
         try
         {
@@ -18,39 +18,41 @@ public static class Database
             if (groupInfo.Count == 0 || accountInfo.Count == 0 || currencyInfo.Count == 0)
             {
                 using var dbNew = NewConnection();
-                CreateNewTables(dbNew, types);
+                CreateNewTables(dbNew);
+                LoadDefaultGroup();
+                LoadDefaultCurrency();
                 return true;
             }
         }
         catch
         {
             using var db = NewConnection();
-            CreateNewTables(db, types);
+            CreateNewTables(db);
+            LoadDefaultGroup();
+            LoadDefaultCurrency();
             return true;
-            //LoadDefaults(db);
         }
         return false;
     }
     
     
-    public static void CreateNewTables(SQLiteConnection db, Type[] types)
+    public static void CreateNewTables(SQLiteConnection db)
     {
-        foreach (var t in types)
-        {
-            db.CreateTable(t);
-        }
+        db.CreateTable<Group>();
+        db.CreateTable<Currency>();
+        db.CreateTable<Account>();
     }
 
-    public static void LoadDefaultCurrency<TCurrency>() where TCurrency : ICurrency, new()
+    public static void LoadDefaultCurrency()
     {
         using var db = ExistingConnection();
-        db.Insert(new TCurrency() { Name = "UAH", RatioToUah = 1.0f, Id = 0});
+        db.Insert(new Currency() { Name = "UAH", RatioToUah = 1.0f, Id = 0});
     }
     
-    public static void LoadDefaultGroup<TGroup>() where TGroup : IGroup, new() 
+    public static void LoadDefaultGroup() 
     {
         using var db = ExistingConnection();
-        db.Insert(new TGroup() { Name = "Усі", Id = 0});
+        db.Insert(new Group() { Name = "Усі", Id = 0});
     }
     public static SQLiteConnection NewConnection(string path = DefaultPath) =>
         new(path,  SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);

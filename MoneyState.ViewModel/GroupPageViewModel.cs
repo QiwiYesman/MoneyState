@@ -23,6 +23,21 @@ public class GroupPageViewModel: PageBase
     {
         LoadPage(new GroupEditPageViewModel(GroupContainer));
     }
+
+    public void GoInsertAccountPage()
+    {
+        LoadPage(new AccountEditPageViewModel(Display.GroupContainer, Display.CurrencyContainer, Display.AccountContainer));
+    }
+
+    public void GoEditAccountPage(object? arg)
+    {
+        if(arg is not ObservableAccount account) return;
+        LoadPage(new AccountEditPageViewModel(
+            group: Display.GroupContainer,
+            currency: Display.CurrencyContainer,
+            accounts: Display.AccountContainer,
+            account: account));
+    }
     
     
     public void GoEditCurrencyPage()
@@ -32,5 +47,11 @@ public class GroupPageViewModel: PageBase
         };
         LoadPage(page);
     }
-   
+    public void GoRegroupPage()
+    {
+        var page = new RegroupAccountsPageViewModel(Display.GroupContainer, Display.AccountContainer, Display.GroupContainer.Collection)
+        {
+        };
+        LoadPage(page);
+    }
 }

@@ -21,11 +21,7 @@ public class DisplayViewModel : ReactiveObject
     
     public DisplayViewModel()
     {
-        if (Database.Init([typeof(ObservableGroup), typeof(ObservableAccount), typeof(ObservableCurrency)]))
-        {
-            Database.LoadDefaultCurrency<ObservableCurrency>();
-            Database.LoadDefaultGroup<ObservableGroup>();
-        }
+        Database.Init();
         GroupContainer = new()
         {
             Collection = new ObservableCollection<ObservableGroup>()

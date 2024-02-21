@@ -4,7 +4,7 @@ using MoneyState.Model.Entities;
 
 namespace MoneyState.Model.Containers;
 
-public class CurrencyContainer<TCurrency> : EntityContainerBase<TCurrency> where TCurrency: ICurrency, new()
+public class CurrencyContainer<TCurrency> : EntityContainerBase<TCurrency> where TCurrency: Currency, new()
 {
 
     public void Insert(string newName, float ratio)

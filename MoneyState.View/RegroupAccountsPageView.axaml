@@ -1,0 +1,47 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+             xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyState.View.RegroupAccountsPageView"
+             x:DataType="viewModel:RegroupAccountsPageViewModel">
+    <Design.DataContext>
+        <viewModel:RegroupAccountsPageViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Button Command="{Binding ConfirmChanges}">Перегрупувати</Button>
+            <Button Command="{Binding Back}">Скасувати</Button>
+        </StackPanel>
+        <Grid ColumnDefinitions="*,*,*">
+            <ListBox Grid.Column="0"
+                     ItemsSource="{Binding AccountContainer.Collection}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Column="1"
+                     ItemsSource="{Binding AssignedGroups}"
+                     SelectedIndex="{Binding CurrentIndex}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="entities:Group">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Column="2"
+                     ItemsSource="{Binding GroupContainer.Collection}"
+                     SelectedItem="{Binding CurrentAssignGroup}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+</UserControl>

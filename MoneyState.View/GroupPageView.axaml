@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
-             xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
              xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MoneyState.View.GroupPageView"
@@ -14,8 +13,9 @@
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
             <Button Command="{Binding GoEditGroupPage}">Редагувати групи</Button>
-            <Button Command="{Binding GoEditGroupPage}">Додати рахунок</Button>
+            <Button Command="{Binding GoInsertAccountPage}">Додати рахунок</Button>
             <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
+            <Button Command="{Binding GoRegroupPage}">Перегрупувати рахунки</Button>
         </StackPanel>
         <TabControl ItemsSource="{Binding GroupContainer.Collection}">
             <TabControl.ItemTemplate>
@@ -28,8 +28,10 @@
                     <ListBox ItemsSource="{Binding Accounts}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="observableEntities:ObservableAccount">
-                                <Button>
+                                <Button Command="{Binding $parent[TabControl].((viewModel:GroupPageViewModel)DataContext).GoEditAccountPage }"
+                                        CommandParameter="{Binding}">
                                     <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}"/>
                                         <TextBlock Text="{Binding Balance}"/>
                                         <TextBlock Text="{Binding Currency.Name, FallbackValue=?}"/>
                                     </StackPanel>
@@ -40,12 +42,5 @@
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
-        <!--<ListBox ItemsSource="{Binding GroupContainer.Groups}">
-            <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="entities:Group">
-                    <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
     </DockPanel>
 </UserControl>
