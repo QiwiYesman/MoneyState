@@ -7,49 +7,52 @@ namespace MoneyState.ViewModel;
 
 public class GroupPageViewModel: PageBase
 {
+    private ObservableGroup _currentGroup;
+
+    public ObservableGroup CurrentGroup
+    {
+        get => _currentGroup;
+        set => this.RaiseAndSetIfChanged(ref _currentGroup, value);
+    }
     public GroupPageViewModel()
     {
         
     }
-
-    public GroupPageViewModel(GroupContainer<ObservableGroup> groupContainer)
-    {
-        GroupContainer = groupContainer;
-    }
-    public GroupContainer<ObservableGroup> GroupContainer { get; set; }
     
-
     public void GoEditGroupPage()
     {
-        LoadPage(new GroupEditPageViewModel(GroupContainer));
+        LoadPage(new GroupEditPageViewModel(Display));
     }
-
+    public void GoTransferPage()
+    {
+        LoadPage(new TransferBalancePageViewModel(Display, AccountContainer.Collection));
+    }
     public void GoInsertAccountPage()
     {
-        LoadPage(new AccountEditPageViewModel(Display.GroupContainer, Display.CurrencyContainer, Display.AccountContainer));
+        LoadPage(new AccountEditPageViewModel(Display, new ObservableAccount())
+        {
+            IsNewAccount = true,
+            CurrentGroup = CurrentGroup
+        });
     }
 
-    public void GoEditAccountPage(object? arg)
+    public void GoViewAccountPage(object? arg)
     {
         if(arg is not ObservableAccount account) return;
-        LoadPage(new AccountEditPageViewModel(
-            group: Display.GroupContainer,
-            currency: Display.CurrencyContainer,
-            accounts: Display.AccountContainer,
-            account: account));
+        LoadPage(new AccountInfoPageViewModel(Display, account));
     }
     
     
     public void GoEditCurrencyPage()
     {
-        var page = new CurrencyEditPageViewModel(Display.CurrencyContainer)
+        var page = new CurrencyEditPageViewModel(Display)
         {
         };
         LoadPage(page);
     }
     public void GoRegroupPage()
     {
-        var page = new RegroupAccountsPageViewModel(Display.GroupContainer, Display.AccountContainer, Display.GroupContainer.Collection)
+        var page = new RegroupAccountsPageViewModel(Display)
         {
         };
         LoadPage(page);

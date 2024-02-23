@@ -5,24 +5,24 @@ using MoneyState.ViewModel.ObservableEntities;
 using ReactiveUI;
 
 namespace MoneyState.ViewModel;
-using GroupContainer = GroupContainer<ObservableGroup>;
-using CurrencyContainer = CurrencyContainer<ObservableCurrency>;
-using AccountContainer = AccountContainer<ObservableAccount>;
 
 public class AccountEditPageViewModel : EditPageBase
 {
-    public CurrencyContainer CurrencyContainer { get; set; }
-    public GroupContainer GroupContainer { get; set; }
-    public AccountContainer AccountContainer { get; set; }
-    public ObservableAccount? Account { get; set; }
+    public ObservableAccount Account { get; set; }
 
-    public bool IsNewAccount => Account == null; 
+    public bool IsNewAccount { get; set; } = false;
 
+    private bool _toConvertWhenUpdate = false;
     private Group _group;
     private Currency _currency;
     private string _balance;
     private string _name;
     
+    public bool ToConvertWhenUpdate
+    {
+        get => _toConvertWhenUpdate;
+        set => this.RaiseAndSetIfChanged(ref _toConvertWhenUpdate, value);
+    }
     public Group CurrentGroup
     {
         get => _group;
@@ -50,26 +50,15 @@ public class AccountEditPageViewModel : EditPageBase
     public AccountEditPageViewModel()
     {
     }
-    public AccountEditPageViewModel(GroupContainer group, CurrencyContainer currency, AccountContainer accounts)
+    
+    public AccountEditPageViewModel(DisplayViewModel display, ObservableAccount account)
     {
-        GroupContainer = group;
-        CurrencyContainer = currency;
-        AccountContainer = accounts;
-    }
-    public AccountEditPageViewModel(GroupContainer group, CurrencyContainer currency, AccountContainer accounts, ObservableAccount account)
-    {
-        GroupContainer = group;
-        CurrencyContainer = currency;
-        AccountContainer = accounts;
+        Display = display;
         Account = account;
         LoadFieldsFromAccount(account);
     }
-    public AccountEditPageViewModel(ObservableAccount account)
-    {
-        Account = account;
-    }
 
-    private void LoadFieldsFromAccount(ObservableAccount account)
+    private void LoadFieldsFromAccount(Account account)
     {
         Name = account.Name;
         Balance = account.Balance.ToString(CultureInfo.InvariantCulture);
@@ -89,8 +78,8 @@ public class AccountEditPageViewModel : EditPageBase
 
     public override void Update()
     {
-        if (Account == null) return;
-        if (!float.TryParse(Balance, out var balance))
+        if (IsNewAccount) return;
+        if (!float.TryParse(Balance, CultureInfo.InvariantCulture, out var balance))
         {
             ErrorMessage = "Введіть число в балансі";
             return;
@@ -102,21 +91,25 @@ public class AccountEditPageViewModel : EditPageBase
         
         if (toChangeGroup) CurrentGroup.Add(Account);
         if (toChangeBalance) Account.Balance = balance;
+        if (toChangeName) Account.Name = _name;
         if (toChangeCurrency)
         {
+            if (ToConvertWhenUpdate)
+            {
+                AccountContainer.ConvertAccountToCurrency(Account, CurrentCurrency);
+                return;
+            }
             Account.Currency = CurrentCurrency;
             Account.CurrencyId = CurrentCurrency.Id;
-        }
 
-        if (toChangeName) Account.Name = _name;
-        
+        }
         AccountContainer.Update(Account);
     }
 
     public override void Remove()
     {
-        if(Account == null) return;
+        if(IsNewAccount) return;
         AccountContainer.Delete(Account);
-        Account.Group?.Remove(Account);
+        Back();
     }
 }

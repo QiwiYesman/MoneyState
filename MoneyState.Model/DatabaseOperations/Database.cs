@@ -15,7 +15,8 @@ public static class Database
             var groupInfo = db.GetTableInfo("Group");
             var accountInfo = db.GetTableInfo("Account");
             var currencyInfo = db.GetTableInfo("Currency");
-            if (groupInfo.Count == 0 || accountInfo.Count == 0 || currencyInfo.Count == 0)
+            var logInfo = db.GetTableInfo("AccountLog");
+            if (groupInfo.Count == 0 || accountInfo.Count == 0 || currencyInfo.Count == 0 || logInfo.Count == 0)
             {
                 using var dbNew = NewConnection();
                 CreateNewTables(dbNew);
@@ -41,6 +42,7 @@ public static class Database
         db.CreateTable<Group>();
         db.CreateTable<Currency>();
         db.CreateTable<Account>();
+        db.CreateTable<AccountLog>();
     }
 
     public static void LoadDefaultCurrency()

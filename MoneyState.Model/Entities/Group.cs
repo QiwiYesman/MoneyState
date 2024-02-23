@@ -13,8 +13,8 @@ public class Group: EntityBase
 
     public void Add(Account account)
     {
-        Accounts.Add(account);
         account.Group?.Remove(account);
+        Accounts.Add(account);
         account.Group = this;
         account.GroupId = Id;
     }

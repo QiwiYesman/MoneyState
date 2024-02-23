@@ -10,16 +10,12 @@ public class CurrencyEditPageViewModel: EditPageBase
 
     public CurrencyEditPageViewModel()
     {
-        CurrencyContainer = new(); 
     }
 
-    public CurrencyEditPageViewModel(CurrencyContainer<ObservableCurrency> currencyContainer)
+    public CurrencyEditPageViewModel(DisplayViewModel display)
     {
-        CurrencyContainer = currencyContainer;
+        Display = display;
     }
-    public CurrencyContainer<ObservableCurrency> CurrencyContainer { get; set; }
-
-    public Collection<ObservableCurrency> Currencies => CurrencyContainer.Collection;
     
     private string _newName = "";
 
@@ -91,6 +87,17 @@ public class CurrencyEditPageViewModel: EditPageBase
             ErrorMessage = "Не можна видаляти гривню!";
             return;
         }
+        
+        var uah = CurrencyContainer.Collection.First(x => x.Name == "UAH");
+        foreach (var account in AccountContainer.Collection)
+        {
+            if (account.CurrencyId == CurrentCurrency.Id)
+            {
+                AccountContainer.ConvertAccountToCurrency(account, uah);
+            }
+        }
+
+        ErrorMessage = "Рахунки з видаленою валютою переведені у гривню";
         CurrencyContainer.Delete(CurrentCurrency);
     }
 }

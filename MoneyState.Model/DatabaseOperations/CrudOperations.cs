@@ -11,6 +11,18 @@ public static class CrudOperations
         return connection.Table<TEntity>().ToArray();
     }
 
+    public static AccountLog[] GetLogsOfAccount(Account account)
+    {
+        using var connection = Database.ReadonlyConnection();
+        return connection.Table<AccountLog>().Where(x => x.AccountId == account.Id).ToArray();
+    }
+
+    public static void ClearLogsOfAccount(Account account)
+    {
+        using var connection = Database.ExistingConnection();
+        connection.Table<AccountLog>().Delete(x => x.AccountId == account.Id);
+    }
+
     public static TEntity GetSingle<TEntity>(int id) where TEntity : EntityBase, new()
     {
         using var connection = Database.ReadonlyConnection();
@@ -29,6 +41,18 @@ public static class CrudOperations
         connection.Update(obj);
     }
 
+    public static void InsertAccountLog(string message, float balanceChange, int accountId)
+    {
+        using var connection = Database.ExistingConnection();
+        var operation = new AccountLog()
+        {
+            BalanceChange = balanceChange,
+            Message = message,
+            AccountId = accountId,
+            OperationDate = DateTime.Now
+        };
+        connection.Insert(operation);
+    }
     public static TGroup InsertGroup<TGroup>(string groupName)
         where TGroup: Group, new()
     {

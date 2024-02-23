@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+             xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyState.View.TransferBalancePageView"
+             x:DataType="viewModel:TransferBalancePageViewModel">
+    <Design.DataContext>
+        <viewModel:TransferBalancePageViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Button Command="{Binding Back}">Скасувати</Button>
+            <Button Command="{Binding Confirm}">Конвертувати</Button>
+        </WrapPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Grid ColumnDefinitions="*, *">
+                <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="{Binding FromAccount.Name}"/>
+                    <TextBlock Text="{Binding FromAccount.Balance}"/>
+                    <TextBlock Text="{Binding FromAccount.Currency}"/>        
+                </WrapPanel>
+                <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="{Binding ToAccount.Name}"/>
+                    <TextBlock Text="{Binding ToAccount.Balance}"/>
+                    <TextBlock Text="{Binding ToAccount.Currency}"/>
+                </WrapPanel>
+            </Grid>
+            <DockPanel>
+                <TextBlock Text="Сума" DockPanel.Dock="Left"/>
+                <TextBox Text="{Binding FromBalance}"/>
+            </DockPanel>
+        </StackPanel>
+        <Grid ColumnDefinitions="*,*">
+            <ListBox Grid.Column="0"
+                     ItemsSource="{Binding FromAccounts}"
+                     SelectedItem="{Binding FromAccount}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="observableEntities:ObservableAccount">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Column="1"
+                     ItemsSource="{Binding AccountContainer.Collection}"
+                     SelectedItem="{Binding ToAccount}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="observableEntities:ObservableAccount">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+</UserControl>

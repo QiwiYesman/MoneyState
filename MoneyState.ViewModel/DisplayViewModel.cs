@@ -39,7 +39,7 @@ public class DisplayViewModel : ReactiveObject
         AccountContainer.ReadFromDb();
         MainContainer.ConnectAccountsAndGroups(GroupContainer.Collection, AccountContainer.Collection);
         MainContainer.ConnectAccountsAndCurrencies(AccountContainer.Collection, CurrencyContainer.Collection);
-        CurrentPage = new GroupPageViewModel(GroupContainer)
+        CurrentPage = new GroupPageViewModel()
         {
             Display = this,
         };

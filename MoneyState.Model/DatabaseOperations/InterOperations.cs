@@ -1,1 +1,0 @@
-﻿namespace MoneyState.Model.DatabaseOperations;

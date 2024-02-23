@@ -5,16 +5,11 @@ using MoneyState.ViewModel.ObservableEntities;
 using ReactiveUI;
 
 namespace MoneyState.ViewModel;
-using GroupContainer = GroupContainer<ObservableGroup>;
-using AccountContainer = AccountContainer<ObservableAccount>;
 
 public class RegroupAccountsPageViewModel: PageBase
 {
     private int _currentIndex;
-    public GroupContainer GroupContainer { get; set; }
-    public AccountContainer AccountContainer { get; set; }
     
-    public IEnumerable<ObservableGroup> PossibleGroups { get; set; }
     public ObservableCollection<Group> AssignedGroups { get; set; }
     public Collection<ObservableAccount> Accounts => AccountContainer.Collection; 
 
@@ -34,12 +29,9 @@ public class RegroupAccountsPageViewModel: PageBase
         set => AssignedGroups[_currentIndex] = value;
     }
 
-    public RegroupAccountsPageViewModel(GroupContainer groupContainer, AccountContainer accountContainer,
-        IEnumerable<ObservableGroup> groups)
+    public RegroupAccountsPageViewModel(DisplayViewModel display)
     {
-        GroupContainer = groupContainer;
-        AccountContainer = accountContainer;
-        PossibleGroups = groups;
+        Display = display;
         AssignedGroups = new();
         LoadAssignGroups();
     }

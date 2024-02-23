@@ -5,7 +5,6 @@ namespace MoneyState.Model.Containers;
 
 public static class MainContainer
 {
-    
 
     public static void ConnectAccountsAndGroups<TGroup, TAccount>(Collection<TGroup> groups, Collection<TAccount> accounts)
         where TGroup: Group

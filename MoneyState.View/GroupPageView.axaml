@@ -11,13 +11,15 @@
         <viewModel:GroupPageViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+        <WrapPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
             <Button Command="{Binding GoEditGroupPage}">Редагувати групи</Button>
             <Button Command="{Binding GoInsertAccountPage}">Додати рахунок</Button>
+            <Button Command="{Binding GoTransferPage}">Переказ між рахунками</Button>
             <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
             <Button Command="{Binding GoRegroupPage}">Перегрупувати рахунки</Button>
-        </StackPanel>
-        <TabControl ItemsSource="{Binding GroupContainer.Collection}">
+        </WrapPanel>
+        <TabControl ItemsSource="{Binding GroupContainer.Collection}"
+                    SelectedItem="{Binding CurrentGroup}">
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="observableEntities:ObservableGroup">
                     <TextBlock Text="{Binding Name}"/>
@@ -28,7 +30,8 @@
                     <ListBox ItemsSource="{Binding Accounts}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="observableEntities:ObservableAccount">
-                                <Button Command="{Binding $parent[TabControl].((viewModel:GroupPageViewModel)DataContext).GoEditAccountPage }"
+                                <Button Command="{Binding 
+                                $parent[TabControl].((viewModel:GroupPageViewModel)DataContext).GoViewAccountPage }"
                                         CommandParameter="{Binding}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Name}"/>

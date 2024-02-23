@@ -11,13 +11,15 @@ namespace MoneyState.ViewModel;
 public class GroupEditPageViewModel: EditPageBase
 {
 
-    public GroupEditPageViewModel(GroupContainer<ObservableGroup> container)
-    {
-        GroupContainer = container;
-        SetCurrentGroupToFirst();
-    }
     public GroupEditPageViewModel()
     {
+        SetCurrentGroupToFirst();
+    }
+
+    public GroupEditPageViewModel(DisplayViewModel display)
+    {
+        Display = display;
+        SetCurrentGroupToFirst();
     }
     public void SetCurrentGroupToFirst()
     {
@@ -26,7 +28,6 @@ public class GroupEditPageViewModel: EditPageBase
     
 
     public Collection<ObservableGroup> Groups => GroupContainer.Collection;
-    public GroupContainer<ObservableGroup> GroupContainer { get; set; }
     
     private string _newName = "";
     public string NewName
