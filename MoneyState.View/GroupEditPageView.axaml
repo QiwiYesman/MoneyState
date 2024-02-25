@@ -11,15 +11,16 @@
     <Design.DataContext>
         <viewModel:GroupEditPageViewModel/>
     </Design.DataContext>
+    <ScrollViewer>
     <DockPanel>
         <TextBlock Text="{Binding ErrorMessage, Mode=TwoWay}" DockPanel.Dock="Bottom"/>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+        <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" VerticalAlignment="Top">
             <TextBox Text="{Binding NewName}"/>
             <Button Command="{Binding InsertAsync}">Додати</Button>
             <Button Command="{Binding UpdateAsync}">Оновити</Button>
             <Button Command="{Binding RemoveAsync}">Видалити</Button>
             <Button Command="{Binding Back}">Назад</Button>
-        </StackPanel>
+        </WrapPanel>
         <ListBox 
             ItemsSource="{Binding Groups, Mode=TwoWay}"
             SelectedItem="{Binding CurrentGroup}">
@@ -30,4 +31,5 @@
             </ListBox.ItemTemplate>
         </ListBox>
     </DockPanel>
+    </ScrollViewer>
 </UserControl>

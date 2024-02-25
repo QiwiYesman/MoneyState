@@ -6,7 +6,9 @@ namespace MoneyState.Model.DatabaseOperations;
 
 public static class Database
 {
-    private const string DefaultPath="db3.db";
+    private const string DbName="db.db";
+
+    private static string DbPath => Path.Combine(AppContext.BaseDirectory, DbName);
     public static bool Init()
     {
         try
@@ -56,13 +58,13 @@ public static class Database
         using var db = ExistingConnection();
         db.Insert(new Group() { Name = "Усі", Id = 0});
     }
-    public static SQLiteConnection NewConnection(string path = DefaultPath) =>
-        new(path,  SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
+    public static SQLiteConnection NewConnection() =>
+        new(DbPath,  SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
 
-    public static SQLiteConnection ExistingConnection(string path = DefaultPath) =>
-        new(path, SQLiteOpenFlags.ReadWrite);
+    public static SQLiteConnection ExistingConnection() =>
+        new(DbPath, SQLiteOpenFlags.ReadWrite);
 
-    public static SQLiteConnection ReadonlyConnection(string path = DefaultPath) =>
-        new(path, SQLiteOpenFlags.FullMutex | SQLiteOpenFlags.ReadOnly);
+    public static SQLiteConnection ReadonlyConnection() =>
+        new(DbPath, SQLiteOpenFlags.FullMutex | SQLiteOpenFlags.ReadOnly);
     
 }
