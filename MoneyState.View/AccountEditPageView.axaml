@@ -11,13 +11,12 @@
     </Design.DataContext>
     <DockPanel LastChildFill="False">
         <WrapPanel Classes="NavigatePanel">
-            <Button Classes="BackButton" Command="{Binding Back}"/>
+            <Button Classes="BackButton"/>
             <Button Classes="AcceptButton" Command="{Binding InsertAsync}"
                     IsVisible="{Binding IsNewAccount}">Додати</Button>
-            <Button Classes="NeutralButton" Command="{Binding UpdateAsync}"
-                    IsVisible="{Binding !IsNewAccount}">Оновити</Button>
-            <Button Classes="RemoveButton" Command="{Binding RemoveAsync}"
-                    IsVisible="{Binding !IsNewAccount}">Видалити</Button>
+            <Button Classes="NeutralButton" IsVisible="{Binding !IsNewAccount}"/>
+            <Button Classes="RemoveButton"
+                    IsVisible="{Binding !IsNewAccount}"/>
             
         </WrapPanel>
         <Grid ColumnDefinitions="4*,6*" RowDefinitions="*,*,*,*,*">

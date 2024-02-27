@@ -28,6 +28,15 @@
                 <Setter Property="Background" Value="{x:Null}"/>
             </Style>
         </Style>
+        <Style Selector="^.NoSelection ListBoxItem">
+            <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+            <Style Selector="^:selected /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+            </Style>
+            <Style Selector="^:pressed /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+            </Style>
         </Style>
+    </Style>
     <!-- Add Styles Here -->
 </Styles>

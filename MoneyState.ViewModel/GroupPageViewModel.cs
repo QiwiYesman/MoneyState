@@ -18,16 +18,15 @@ public class GroupPageViewModel: PageBase
     {
         
     }
+
+    public void GoEditChoicePage()
+    {
+        LoadPage(new EditChoicePageViewModel(Display));
+    }
     
-    public void GoEditGroupPage()
-    {
-        LoadPage(new GroupEditPageViewModel(Display));
-    }
-    public void GoTransferPage()
-    {
-        if (AccountContainer.Collection.Count == 0) return;
-        LoadPage(new TransferBalancePageViewModel(Display, AccountContainer.Collection));
-    }
+    
+    
+    
     public void GoInsertAccountPage()
     {
         LoadPage(new AccountEditPageViewModel(Display, new ObservableAccount())
@@ -43,19 +42,4 @@ public class GroupPageViewModel: PageBase
         LoadPage(new AccountInfoPageViewModel(Display, account));
     }
     
-    
-    public void GoEditCurrencyPage()
-    {
-        var page = new CurrencyEditPageViewModel(Display)
-        {
-        };
-        LoadPage(page);
-    }
-    public void GoRegroupPage()
-    {
-        var page = new RegroupAccountsPageViewModel(Display)
-        {
-        };
-        LoadPage(page);
-    }
 }

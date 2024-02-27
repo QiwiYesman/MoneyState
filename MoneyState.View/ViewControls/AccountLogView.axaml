@@ -1,0 +1,49 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:MoneyState.View.ViewControls">
+    <Design.PreviewWith>
+        <controls:AccountLogView/>
+    </Design.PreviewWith>
+    <Style Selector="controls|AccountLogView">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid ColumnDefinitions="5*,5*">
+                    <TextBlock Grid.Column="0" TextWrapping="WrapWithOverflow" 
+                               Classes="AccountLogMessage" Text="{Binding AccountLog.Message, RelativeSource={RelativeSource TemplatedParent}}" />
+                    <WrapPanel Grid.Column="1" Orientation="Vertical">
+                        <TextBlock Classes="AccountLogBalance"
+                                   Classes.ProfitLog="{Binding AccountLog.BalanceChange,
+                                RelativeSource={RelativeSource TemplatedParent}, 
+                                Converter={StaticResource BalanceToProfitConverter}}"
+                                   Classes.LossLog="{Binding AccountLog.BalanceChange,
+                                RelativeSource={RelativeSource TemplatedParent}, 
+                                Converter={StaticResource BalanceToLossConverter}}"
+                                   Text="{Binding AccountLog.BalanceChange, 
+                                   RelativeSource={RelativeSource TemplatedParent}}" />
+                        <TextBlock Classes="AccountLogDate" 
+                                   Text="{Binding AccountLog.OperationDate, RelativeSource={RelativeSource TemplatedParent}}" />     
+                    </WrapPanel>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^ TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style Selector="^.AccountLogMessage">
+                <Setter Property="Foreground" Value="{StaticResource NeutralBrush}"/>
+            </Style>
+            <Style Selector="^.AccountLogBalance">
+                <Setter Property="FontSize" Value="20"/>
+                <Style Selector="^.ProfitLog">
+                    <Setter Property="Foreground" Value="{StaticResource ProfitBrush}"/>
+                </Style>
+                <Style Selector="^.LossLog">
+                    <Setter Property="Foreground" Value="{StaticResource LossBrush}"/>
+                </Style>
+            </Style>
+            <Style Selector="^.AccountLogDate">
+                <Setter Property="Foreground" Value="{StaticResource NeutralBrush}"/>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

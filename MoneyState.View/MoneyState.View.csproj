@@ -5,7 +5,6 @@
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-        <OutputType>WinExe</OutputType>
     </PropertyGroup>
 
 
@@ -22,5 +21,13 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MoneyState.ViewModel\MoneyState.ViewModel.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Compile Update="BalanceEditPageView.axaml.cs">
+        <DependentUpon>BalanceEditPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

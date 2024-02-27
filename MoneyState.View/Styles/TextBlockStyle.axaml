@@ -6,8 +6,25 @@
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="TextBlock.Label">
-        <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
+    <Style Selector="TextBlock">
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        <Style Selector="^.AccountName">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="{StaticResource AccountNameDefaultBrush}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="^.AccountBalance">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="{StaticResource AccountBalanceDefaultBrush}"/>
+            
+        </Style>
+        <Style Selector="^.AccountCurrency">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="{StaticResource CurrencyDefaultBrush}"/>
+        </Style>
+        <Style Selector="^.Label">
+            <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </Style>
 </Styles>

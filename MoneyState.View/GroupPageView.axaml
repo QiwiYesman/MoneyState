@@ -13,11 +13,8 @@
     </Design.DataContext>
     <DockPanel>
         <WrapPanel Classes="NavigatePanel">
-            <Button Command="{Binding GoEditGroupPage}">Редагувати групи</Button>
-            <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
             <Button Command="{Binding GoInsertAccountPage}">Додати рахунок</Button>
-            <Button Command="{Binding GoTransferPage}">Переказ між рахунками</Button>
-            <Button Command="{Binding GoRegroupPage}">Перегрупувати рахунки</Button>
+            <Button Command="{Binding GoEditChoicePage}">Редагувати...</Button>
         </WrapPanel>
         <TabControl ItemsSource="{Binding GroupContainer.Collection}"
                     SelectedItem="{Binding CurrentGroup}">

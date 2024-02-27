@@ -4,6 +4,7 @@
     <Design.PreviewWith>
         <DockPanel LastChildFill="False">
             <view:AccountEditPageView DockPanel.Dock="Top" Width="400" Height="600"/>
+            <ComboBox DockPanel.Dock="Bottom" ItemsSource="12345"/>
         </DockPanel>
     </Design.PreviewWith>
     
@@ -11,16 +12,50 @@
         <Setter Property="DockPanel.Dock" Value="Top"/>
         <Style Selector="^ TextBlock:nth-child(odd)">
             <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style Selector="^ ComboBox">
-            <Setter Property="BorderBrush" Value="{StaticResource LightButtonBrush}"/>
-            <Setter Property="BorderThickness" Value="{StaticResource SmallThicknessBottom}"/>
-            <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+        
+    </Style>
+    <Style Selector="ComboBox">
+        <Setter Property="BorderBrush" Value="{StaticResource LightButtonBrush}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource SmallThicknessBottom}"/>
+        <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+        <Style Selector="^ TextBlock">
             <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
-            <Style Selector="^  /template/ Path#DropDownGlyph">
-                <Setter Property="Fill" Value="{StaticResource LightButtonBrush}"/>
+        </Style>
+        <Style Selector="^ ComboBoxItem">
+            <Style Selector="^:selected">
+                <Style Selector="^ TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource SelectedTextDarkBrush}"/>
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Background" Value="{StaticResource SelectedLightBrush}"/>
+                </Style>
             </Style>
+            <Setter Property="Background" Value="{StaticResource DarkBackgroundBrush}"/>
         </Style>
     </Style>
-    
+    <Style Selector="CheckBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+                
+                <ToggleButton 
+                    Width="{Binding  Bounds.Height, RelativeSource={RelativeSource TemplatedParent} }" 
+                    Height="{Binding  Bounds.Height, RelativeSource={RelativeSource TemplatedParent} }"
+                    IsChecked="{TemplateBinding IsChecked, Mode=TwoWay}"
+                    BorderThickness="0"
+                    />
+                
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^ /template/ ToggleButton">
+            <Style Selector="^:checked /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource SelectedLightBrush}"/>
+            </Style>
+            <Style Selector="^:unchecked /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource CancelBrush}"/>
+            </Style>    
+        </Style>
+        
+    </Style>
 </Styles>

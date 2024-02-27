@@ -12,7 +12,7 @@
     </Design.DataContext>
     <DockPanel>
         <WrapPanel Classes="NavigatePanel">
-            <Button Classes="BackButton" Command="{Binding Back}"/>
+            <Button Classes="BackButton"/>
             <Button Classes="ConfirmButton" Command="{Binding ConfirmChanges}"/>
         </WrapPanel>
         <Grid ColumnDefinitions="*,*,*">

@@ -13,8 +13,8 @@
     </Design.DataContext>
     <DockPanel>
         <WrapPanel Classes="NavigatePanel">
-            <Button Classes="BackButton" Command="{Binding Back}"/>
-            <Button Classes="AddButton" Command="{Binding Confirm}">Конвертувати</Button>
+            <Button Classes="BackButton"/>
+            <Button Classes="ConfirmButton" Command="{Binding Confirm}">Конвертувати</Button>
         </WrapPanel>
         <StackPanel DockPanel.Dock="Bottom">
             <Grid ColumnDefinitions="*, *">

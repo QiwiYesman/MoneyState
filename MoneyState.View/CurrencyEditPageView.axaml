@@ -12,10 +12,10 @@
     </Design.DataContext>
     <DockPanel>
         <WrapPanel Classes="NavigatePanel">
-            <Button Classes="BackButton" Command="{Binding Back}"/>
-            <Button Classes="AddButton" Command="{Binding InsertAsync}">Додати</Button>
-            <Button Classes="NeutralButton" Command="{Binding UpdateAsync}">Оновити</Button>
-            <Button Classes="RemoveButton" Command="{Binding RemoveAsync}">Видалити</Button>
+            <Button Classes="BackButton"/>
+            <Button Classes="AddButton"/>
+            <Button Classes="NeutralButton"/>
+            <Button Classes="RemoveButton"/>
         </WrapPanel>
         <TextBlock DockPanel.Dock="Bottom" Text="{Binding ErrorMessage}"/>
         <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,*" RowDefinitions="*,*">

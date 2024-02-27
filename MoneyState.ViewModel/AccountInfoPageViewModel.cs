@@ -41,6 +41,11 @@ public class AccountInfoPageViewModel: PageBase
         var page = new AccountEditPageViewModel(Display, Account);
         LoadPage(page);
     }
+    public void GoEditBalancePage()
+    {
+        var page = new BalanceEditPageViewModel(Display, Account);
+        LoadPage(page);
+    }
 
     public void ClearLogs()
     {

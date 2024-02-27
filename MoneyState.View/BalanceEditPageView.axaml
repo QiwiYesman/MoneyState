@@ -1,0 +1,33 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+             xmlns:viewControls="clr-namespace:MoneyState.View.ViewControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyState.View.BalanceEditPageView"
+             x:DataType="viewModel:BalanceEditPageViewModel">
+    <Design.DataContext>
+        <viewModel:BalanceEditPageViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <WrapPanel Classes="NavigatePanel" Orientation="Vertical">
+            <WrapPanel Classes="NavigatePanel">
+                <Button Classes="RemoveButton" Command="{Binding ConfirmLoss}">Відняти значення</Button>
+                <Button Classes="AddButton" Command="{Binding ConfirmProfit}">Додати значення</Button>
+            </WrapPanel>
+            <Button Classes="BackButton"/>
+            
+        </WrapPanel>
+        <viewControls:AccountView Classes="AccountBalanceView" DockPanel.Dock="Top"
+                                  Account="{Binding Account}"/>
+        <Grid ColumnDefinitions="4*, 6*" RowDefinitions="*,*" DockPanel.Dock="Top">
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="На скільки поповнити/зняти?"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding BalanceChange} "/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Додаткове повідомлення"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Message}"/>    
+        </Grid>
+        <TextBlock Text="{Binding ErrorMessage}" DockPanel.Dock="Bottom"/>
+        
+    </DockPanel>
+</UserControl>

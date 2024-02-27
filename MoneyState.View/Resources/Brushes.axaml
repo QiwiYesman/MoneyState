@@ -25,6 +25,11 @@
     <SolidColorBrush x:Key="NeutralBrush">RoyalBlue</SolidColorBrush>
     <SolidColorBrush x:Key="ProfitBrush">Lime</SolidColorBrush>
     <SolidColorBrush x:Key="LossBrush">Red</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="ComboBoxDropDownGlyphForeground">Cyan</SolidColorBrush>
+    <SolidColorBrush x:Key="ComboBoxDropDownBackground">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ComboBoxDropDownBorderBrush">Cyan</SolidColorBrush>
+    
     <!--<SolidColorBrush x:Key="DarkPressButtonBrush">Black</SolidColorBrush>
     <SolidColorBrush x:Key="LightPressButtonBrush">Cyan</SolidColorBrush>
     

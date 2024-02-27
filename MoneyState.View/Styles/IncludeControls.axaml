@@ -7,4 +7,5 @@
     </Design.PreviewWith>
 
     <StyleInclude Source="/ViewControls/AccountView.axaml"/>
+    <StyleInclude Source="/ViewControls/AccountLogView.axaml"/>
 </Styles>

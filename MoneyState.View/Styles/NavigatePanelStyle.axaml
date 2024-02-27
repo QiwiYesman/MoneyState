@@ -1,5 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+        x:DataType="viewModel:EditPageBase">
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
@@ -11,7 +13,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Orientation" Value="Horizontal"/>
         <Style Selector="^ Button">
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Height" Value="{Binding $parent[WrapPanel].Height}"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
@@ -24,6 +26,7 @@
         <Setter Property="Content" Value="Назад"/>
         <Setter Property="Foreground" Value="{StaticResource CancelBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Command" Value="{Binding Back}"/>
     </Style>
     <Style Selector="Button.ConfirmButton">
         <Setter Property="Content" Value="Прийняти"/>
@@ -31,11 +34,17 @@
     </Style>
     <Style Selector="Button.AddButton">
         <Setter Property="Foreground" Value="{StaticResource ProfitBrush}"/>
+        <Setter Property="Command" Value="{Binding InsertAsync}"/>
+        <Setter Property="Content" Value="Додати"/>
     </Style>
     <Style Selector="Button.NeutralButton">
         <Setter Property="Foreground" Value="{StaticResource NeutralBrush}"/>
+        <Setter Property="Command" Value="{Binding UpdateAsync}"/>
+        <Setter Property="Content" Value="Оновити"/>
     </Style>
     <Style Selector="Button.RemoveButton">
         <Setter Property="Foreground" Value="{StaticResource LossBrush}"/>
+        <Setter Property="Command" Value="{Binding RemoveAsync}"/>
+        <Setter Property="Content" Value="Видалити"/>
     </Style>
 </Styles>

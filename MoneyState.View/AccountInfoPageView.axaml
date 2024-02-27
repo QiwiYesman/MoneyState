@@ -12,22 +12,24 @@
         <viewModel:AccountInfoPageViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <WrapPanel Classes="NavigatePanel">
-            <Button Classes="BackButton" Command="{Binding Back}"/>
-            <Button Command="{Binding GoEditAccountPage}">Редагувати</Button>
-            <Button Command="{Binding ReadLogsAsync}">Оновити логи</Button>
-            <Button Command="{Binding ClearLogsAsync}">Очистити логи</Button>
+        <WrapPanel Classes="NavigatePanel" Orientation="Vertical">
+            <WrapPanel Classes="NavigatePanel">
+                <Button Command="{Binding GoEditAccountPage}">Редагувати</Button>
+                <Button Command="{Binding ReadLogsAsync}">Оновити логи</Button>
+                <Button Command="{Binding ClearLogsAsync}">Очистити логи</Button>    
+            </WrapPanel>
+            <WrapPanel Classes="NavigatePanel">
+                <Button Classes="BackButton"/>
+                <Button Classes="ConfirmButton" 
+                        Command="{Binding GoEditBalancePage }">Поповнити/зняти баланс</Button>
+            </WrapPanel>
         </WrapPanel>
         <viewControls:AccountView Classes="AccountInfoView" DockPanel.Dock="Top"
                                   Account="{Binding Account}"/>
-        <ListBox ItemsSource="{Binding Logs}">
+        <ListBox Classes="NoSelection" ItemsSource="{Binding Logs}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="entities:AccountLog">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Message}"/>
-                        <TextBlock Text="{Binding BalanceChange}"/>
-                        <TextBlock Text="{Binding OperationDate}"/>
-                    </StackPanel>
+                    <viewControls:AccountLogView AccountLog="{Binding }"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

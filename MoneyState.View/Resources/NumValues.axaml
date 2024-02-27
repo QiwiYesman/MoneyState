@@ -16,4 +16,6 @@
     <Thickness x:Key="SmallThicknessBottom">0,0,0,1</Thickness>
     <Thickness x:Key="MediumThicknessBottom">0,0,0,2</Thickness>
     <Thickness x:Key="LargeThicknessBottom">0,0,0,3</Thickness>
+    
+    <Thickness x:Key="ComboBoxDropdownBorderThickness">0</Thickness>
 </ResourceDictionary>

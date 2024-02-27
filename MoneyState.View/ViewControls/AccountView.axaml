@@ -4,7 +4,7 @@
         xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
         x:DataType="observableEntities:ObservableAccount">
     <Design.PreviewWith>
-        <controls:AccountView Classes="AccountTransferView" Width="300"/>
+        <controls:AccountView Classes="AccountBalanceView" Width="300"/>
     </Design.PreviewWith>
 
     <Style Selector="controls|AccountView.AccountGroupView">
@@ -113,6 +113,28 @@
         <Style Selector="^ StackPanel">
             <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
         </Style>
-       
+    </Style>
+    <Style Selector="controls|AccountView.AccountBalanceView">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                    <TextBlock Classes="AccountName" 
+                               Text="{Binding Account.Name, 
+                               RelativeSource={RelativeSource TemplatedParent}}"/>
+                    <Grid ColumnDefinitions="3*,7*">
+                        <TextBlock Grid.Column="0" Text="Доступний баланс: " VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Classes="AccountBalance" 
+                                       Text="{Binding Account.Balance, 
+                                   RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="Center"/>
+                            <TextBlock Classes="AccountCurrency"
+                                       Text="{Binding Account.Currency.Name, 
+                                   FallbackValue=?, 
+                                   RelativeSource={RelativeSource TemplatedParent}}"/>    
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
     </Style>
 </Styles>

@@ -1,0 +1,23 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MoneyState.View.EditChoicePageView"
+             x:DataType="viewModel:EditChoicePageViewModel">
+    <Design.DataContext>
+        <viewModel:EditChoicePageViewModel/>
+    </Design.DataContext>
+    <DockPanel>
+        <WrapPanel Classes="NavigatePanel">
+            <Button Classes="BackButton"/>
+        </WrapPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+            <Button Command="{Binding GoEditGroupPage}">Редагувати групи</Button>
+            <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
+            <Button Command="{Binding GoTransferPage}">Переказ між рахунками</Button>
+            <Button Command="{Binding GoRegroupPage}">Перегрупувати рахунки</Button>
+        </StackPanel>
+    </DockPanel>
+</UserControl>
