@@ -11,17 +11,23 @@
         <viewModel:CurrencyEditPageViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="Назва валюти"/>
-            <TextBox Text="{Binding NewName}"/>
-            <TextBlock Text="Кількість гривень в одиниці"/>
-            <TextBox Text="{Binding NewRatio}"/>
-            <TextBlock Text="{Binding ErrorMessage}"/>
-            <Button Command="{Binding InsertAsync}">Додати</Button>
-            <Button Command="{Binding UpdateAsync}">Оновити</Button>
-            <Button Command="{Binding RemoveAsync}">Видалити</Button>
-            <Button Command="{Binding Back}">Назад</Button>
-        </StackPanel>
+        <WrapPanel Classes="NavigatePanel">
+            <Button Classes="BackButton" Command="{Binding Back}"/>
+            <Button Classes="AddButton" Command="{Binding InsertAsync}">Додати</Button>
+            <Button Classes="NeutralButton" Command="{Binding UpdateAsync}">Оновити</Button>
+            <Button Classes="RemoveButton" Command="{Binding RemoveAsync}">Видалити</Button>
+        </WrapPanel>
+        <TextBlock DockPanel.Dock="Bottom" Text="{Binding ErrorMessage}"/>
+        <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,*" RowDefinitions="*,*">
+            <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Text="Назва валюти"/>
+            <TextBox Grid.Row="0" Grid.Column="1" 
+                     Text="{Binding NewName}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Кількість гривень в одиниці"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NewRatio}"/>
+            </Grid>
+            
+            
         <ListBox ItemsSource="{Binding CurrencyContainer.Collection, Mode=TwoWay}"
                  SelectedItem="{Binding CurrentCurrency}">
             <ListBox.ItemTemplate>

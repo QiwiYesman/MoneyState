@@ -1,0 +1,33 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Width="200" Height="300">
+            <ListBox Classes="ButtonList">
+                <ListBoxItem>Hhoho</ListBoxItem>
+                <ListBoxItem><Button>Long text</Button></ListBoxItem>
+                <ListBoxItem><Button>Long text</Button></ListBoxItem>
+                <ListBoxItem>Hhoho</ListBoxItem>
+            </ListBox>
+        </Border>
+    </Design.PreviewWith>
+    <Style Selector="ListBox">
+        <Setter Property="Background" Value="{StaticResource DarkBackgroundBrush}"/>
+        <Style Selector="^ ListBoxItem">
+            <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+            <Setter Property="Padding" Value="{StaticResource MediumPadding}"/>
+            <Style Selector="^:selected /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{StaticResource DarkButtonBrush}"/>
+                <Setter Property="Background" Value="{StaticResource SelectedLightBrush}"/>
+            </Style>
+        </Style>
+        <Style Selector="^.ButtonList ListBoxItem">
+            <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+            <Setter Property="Padding" Value="{StaticResource SmallPadding}"/>
+            <Style Selector="^:selected /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+                <Setter Property="Background" Value="{x:Null}"/>
+            </Style>
+        </Style>
+        </Style>
+    <!-- Add Styles Here -->
+</Styles>

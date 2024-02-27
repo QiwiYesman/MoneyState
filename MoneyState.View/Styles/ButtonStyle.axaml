@@ -1,0 +1,31 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <WrapPanel Height="300" Width="200" Orientation="Horizontal">
+            <Button>Якийсь достатньо довгий текст</Button>
+            <Button>Малий</Button>
+            <Button>Середній текст</Button>
+        </WrapPanel>
+    </Design.PreviewWith>
+
+    <Style Selector="Button">
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+       <!-- <Setter Property="MaxWidth" Value="150"/>-->
+        <Setter Property="CornerRadius" Value="{StaticResource MediumCornerRadius}"/>
+        <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+        
+        <Style Selector="^:pressed">
+            <Style Selector="^ /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource LightButtonBrush}"/>
+                <Setter Property="TextBlock.Foreground" Value="{StaticResource DarkButtonBrush}"/>
+            </Style>
+        </Style>
+        <Style Selector="^:pointerover">
+            <Style Selector="^ /template/ ContentPresenter">
+                <Setter Property="Background" Value="{StaticResource DarkerLightButtonBrush}"/>
+                <Setter Property="TextBlock.Foreground" Value="{StaticResource DarkButtonBrush}"/>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

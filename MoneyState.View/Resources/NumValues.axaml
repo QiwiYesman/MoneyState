@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <CornerRadius x:Key="SmallCornerRadius">5</CornerRadius>
+    <CornerRadius x:Key="MediumCornerRadius">13</CornerRadius>
+    <CornerRadius x:Key="BigCornerRadius">20</CornerRadius>
+    <CornerRadius x:Key="ZeroCornerRadius">0</CornerRadius>
+    
+    <Thickness x:Key="SmallThickness">1</Thickness>
+    <Thickness x:Key="MediumThickness">2</Thickness>
+    <Thickness x:Key="LargeThickness">3</Thickness>
+    
+    <Thickness x:Key="SmallPadding">2</Thickness>
+    <Thickness x:Key="MediumPadding">5</Thickness>
+    <Thickness x:Key="LargePadding">8</Thickness>
+    
+    <Thickness x:Key="SmallThicknessBottom">0,0,0,1</Thickness>
+    <Thickness x:Key="MediumThicknessBottom">0,0,0,2</Thickness>
+    <Thickness x:Key="LargeThicknessBottom">0,0,0,3</Thickness>
+</ResourceDictionary>

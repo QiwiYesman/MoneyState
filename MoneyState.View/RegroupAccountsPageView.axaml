@@ -4,17 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
              xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="350"
              x:Class="MoneyState.View.RegroupAccountsPageView"
              x:DataType="viewModel:RegroupAccountsPageViewModel">
     <Design.DataContext>
         <viewModel:RegroupAccountsPageViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button Command="{Binding ConfirmChanges}">Перегрупувати</Button>
-            <Button Command="{Binding Back}">Скасувати</Button>
-        </StackPanel>
+        <WrapPanel Classes="NavigatePanel">
+            <Button Classes="BackButton" Command="{Binding Back}"/>
+            <Button Classes="ConfirmButton" Command="{Binding ConfirmChanges}"/>
+        </WrapPanel>
         <Grid ColumnDefinitions="*,*,*">
             <ListBox Grid.Column="0"
                      ItemsSource="{Binding AccountContainer.Collection}">

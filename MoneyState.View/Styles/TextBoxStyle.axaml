@@ -1,0 +1,30 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel>
+                <TextBox Text="OfCoiurse"/>
+                <TextBox Text="Ofurse"/>
+                <TextBox Text="OfCoiurse"/>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    
+    <Style Selector="TextBox">
+        <Setter Property="Foreground" Value="{StaticResource TextBoxDefaultBorderBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TextBoxDefaultBorderBrush}"/>
+        <Setter Property="CaretBrush" Value="{StaticResource TextBoxDefaultBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource SmallThicknessBottom}"/>
+        <Style Selector="^ /template/ Border">
+            <Setter Property="Background" Value="{StaticResource TextBoxDefaultBackgroundBrush}"/>            
+        </Style>
+        <Style Selector="^:focus">
+            <Setter Property="Foreground" Value="{StaticResource TextBoxFocusForegroundBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TextBoxFocusForegroundBrush}"/>
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BorderBrush" Value="{StaticResource TextBoxFocusForegroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+            </Style>
+            </Style>
+    </Style>
+</Styles>

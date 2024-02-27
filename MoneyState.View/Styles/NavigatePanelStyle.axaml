@@ -1,0 +1,41 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="WrapPanel.NavigatePanel">
+        <Setter Property="DockPanel.Dock" Value="Bottom"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Style Selector="^ Button">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Height" Value="{Binding $parent[WrapPanel].Height}"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Style Selector="^.BackButton">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+        </Style>
+    </Style>
+    <Style Selector="Button.BackButton">
+        <Setter Property="Content" Value="Назад"/>
+        <Setter Property="Foreground" Value="{StaticResource CancelBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <Style Selector="Button.ConfirmButton">
+        <Setter Property="Content" Value="Прийняти"/>
+        <Setter Property="Foreground" Value="{StaticResource ProfitBrush}"/>
+    </Style>
+    <Style Selector="Button.AddButton">
+        <Setter Property="Foreground" Value="{StaticResource ProfitBrush}"/>
+    </Style>
+    <Style Selector="Button.NeutralButton">
+        <Setter Property="Foreground" Value="{StaticResource NeutralBrush}"/>
+    </Style>
+    <Style Selector="Button.RemoveButton">
+        <Setter Property="Foreground" Value="{StaticResource LossBrush}"/>
+    </Style>
+</Styles>

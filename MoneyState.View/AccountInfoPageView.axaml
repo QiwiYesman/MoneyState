@@ -4,37 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
              xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:viewControls="clr-namespace:MoneyState.View.ViewControls"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
              x:Class="MoneyState.View.AccountInfoPageView"
              x:DataType="viewModel:AccountInfoPageViewModel">
     <Design.DataContext>
         <viewModel:AccountInfoPageViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+        <WrapPanel Classes="NavigatePanel">
+            <Button Classes="BackButton" Command="{Binding Back}"/>
             <Button Command="{Binding GoEditAccountPage}">Редагувати</Button>
             <Button Command="{Binding ReadLogsAsync}">Оновити логи</Button>
             <Button Command="{Binding ClearLogsAsync}">Очистити логи</Button>
-            <Button Command="{Binding Back}">Назад</Button>
         </WrapPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Назва рахунку"/>
-                <TextBlock Text="{Binding Account.Name, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Баланс"/>
-                <TextBlock Text="{Binding Account.Balance, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Група"/>
-                <TextBlock Text="{Binding Account.Group}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Валюта"/>
-                <TextBlock Text="{Binding Account.Currency}"/>
-            </StackPanel>
-        </StackPanel>
+        <viewControls:AccountView Classes="AccountInfoView" DockPanel.Dock="Top"
+                                  Account="{Binding Account}"/>
         <ListBox ItemsSource="{Binding Logs}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="entities:AccountLog">

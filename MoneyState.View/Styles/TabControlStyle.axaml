@@ -1,0 +1,49 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+            <TabControl  Height="300" Width="90">
+                <TabItem Header="1"><ListBox ItemsSource="123">
+                </ListBox></TabItem>
+                <TabItem Header="asdfl">Hello2</TabItem>
+            </TabControl>
+    </Design.PreviewWith>
+    <Style Selector="TabControl">
+        <Style Selector="^ ScrollViewer">
+            <Setter Property="Background" Value="{StaticResource DarkBackgroundBrush}"/>
+        </Style>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel LastChildFill="True">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top">
+                        <ItemsPresenter>
+                            <ItemsPresenter.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 20" VerticalAlignment="Top"/>
+                                </ItemsPanelTemplate>
+                            </ItemsPresenter.ItemsPanel>
+                        </ItemsPresenter>
+                    </ScrollViewer>
+                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                      Content="{TemplateBinding SelectedContent}"/> 
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^ TabItem">
+            <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+            <Setter Property="CornerRadius" Value="{StaticResource ZeroCornerRadius}"/>
+            <Setter Property="Margin" Value="{StaticResource SmallPadding}"/>
+            <Setter Property="Padding" Value="{StaticResource MediumPadding}"/>
+            <Setter Property="BorderBrush" Value="Cyan"/>
+            <Setter Property="BorderThickness" Value="{StaticResource SmallThickness}"/>
+            <Style Selector="^:selected">
+                <Setter Property="Background" Value="{StaticResource LightButtonBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource DarkButtonBrush}"/>
+                <Style Selector="^ /template/ Border#PART_SelectedPipe">
+                    <Setter Property="IsVisible" Value="False"></Setter>
+                </Style>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="DarkButtonBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="LightButtonBrush">Cyan</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkerLightButtonBrush">DarkCyan</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="DarkBackgroundBrush">#131517</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="SelectedLightBrush">Lime</SolidColorBrush>
+    <SolidColorBrush x:Key="SelectedDarkBrush">DarkBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="SelectedTextLightBrush">LightCyan</SolidColorBrush>
+    <SolidColorBrush x:Key="SelectedTextDarkBrush">Black</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="CurrencyDefaultBrush">DeepPink</SolidColorBrush>
+    <SolidColorBrush x:Key="AccountNameDefaultBrush">Cyan</SolidColorBrush>
+    <SolidColorBrush x:Key="AccountBalanceDefaultBrush">Lime</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="TextBoxFocusBackgroundBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxDefaultBackgroundBrush">#131517</SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxFocusForegroundBrush">Yellow</SolidColorBrush>
+    <SolidColorBrush x:Key="TextBoxDefaultBorderBrush">Cyan</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="CancelBrush">OrangeRed</SolidColorBrush>
+    <SolidColorBrush x:Key="NeutralBrush">RoyalBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="ProfitBrush">Lime</SolidColorBrush>
+    <SolidColorBrush x:Key="LossBrush">Red</SolidColorBrush>
+    <!--<SolidColorBrush x:Key="DarkPressButtonBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="LightPressButtonBrush">Cyan</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="DarkButtonBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="LightButtonBrush">Cyan</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="DarkButtonBrush">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="LightButtonBrush">Cyan</SolidColorBrush>-->
+</ResourceDictionary>

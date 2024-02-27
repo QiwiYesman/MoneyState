@@ -4,33 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
              xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:viewControls="clr-namespace:MoneyState.View.ViewControls"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
              x:Class="MoneyState.View.TransferBalancePageView"
              x:DataType="viewModel:TransferBalancePageViewModel">
     <Design.DataContext>
         <viewModel:TransferBalancePageViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button Command="{Binding Back}">Скасувати</Button>
-            <Button Command="{Binding Confirm}">Конвертувати</Button>
+        <WrapPanel Classes="NavigatePanel">
+            <Button Classes="BackButton" Command="{Binding Back}"/>
+            <Button Classes="AddButton" Command="{Binding Confirm}">Конвертувати</Button>
         </WrapPanel>
         <StackPanel DockPanel.Dock="Bottom">
             <Grid ColumnDefinitions="*, *">
-                <WrapPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="{Binding FromAccount.Name}"/>
-                    <TextBlock Text="{Binding FromAccount.Balance}"/>
-                    <TextBlock Text="{Binding FromAccount.Currency}"/>        
-                </WrapPanel>
-                <WrapPanel Grid.Column="1" Orientation="Horizontal">
-                    <TextBlock Text="{Binding ToAccount.Name}"/>
-                    <TextBlock Text="{Binding ToAccount.Balance}"/>
-                    <TextBlock Text="{Binding ToAccount.Currency}"/>
-                </WrapPanel>
+                <viewControls:AccountView Grid.Column="0" Classes="AccountTransferView" 
+                                          Account="{Binding FromAccount}"/>
+                <viewControls:AccountView Grid.Column="1" Classes="AccountTransferView" 
+                                          Account="{Binding ToAccount}"/>
             </Grid>
-            <DockPanel>
-                <TextBlock Text="Сума" DockPanel.Dock="Left"/>
-                <TextBox Text="{Binding FromBalance}"/>
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left" Classes="Label"
+                           Text="Сума"/>
+                <TextBox DockPanel.Dock="Right" 
+                    Text="{Binding FromBalance}"/>
             </DockPanel>
         </StackPanel>
         <Grid ColumnDefinitions="*,*">

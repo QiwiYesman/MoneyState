@@ -9,40 +9,36 @@
     <Design.DataContext>
         <viewModel:AccountEditPageViewModel/>
     </Design.DataContext>
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button Command="{Binding InsertAsync}"
+    <DockPanel LastChildFill="False">
+        <WrapPanel Classes="NavigatePanel">
+            <Button Classes="BackButton" Command="{Binding Back}"/>
+            <Button Classes="AcceptButton" Command="{Binding InsertAsync}"
                     IsVisible="{Binding IsNewAccount}">Додати</Button>
-            <Button Command="{Binding RemoveAsync}"
-                    IsVisible="{Binding !IsNewAccount}">Видалити</Button>
-            <Button Command="{Binding UpdateAsync}"
+            <Button Classes="NeutralButton" Command="{Binding UpdateAsync}"
                     IsVisible="{Binding !IsNewAccount}">Оновити</Button>
-            <Button Command="{Binding Back}">Назад</Button>
-        </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Назва рахунку"/>
-                <TextBox Text="{Binding Name, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Баланс"/>
-                <TextBox Text="{Binding Balance, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Група"/>
-                <ComboBox ItemsSource="{Binding GroupContainer.Collection }"
-                          SelectedItem="{Binding CurrentGroup}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Валюта"/>
-                <ComboBox ItemsSource="{Binding  CurrencyContainer.Collection }"
-                          SelectedItem="{Binding CurrentCurrency}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" IsVisible="{Binding !IsNewAccount}">
-                <TextBlock Text="Чи конвертувати баланс при зміні валюти?"/>
-                <CheckBox IsChecked="{Binding ToConvertWhenUpdate}"/>
-            </StackPanel>
-
-        </StackPanel>
+            <Button Classes="RemoveButton" Command="{Binding RemoveAsync}"
+                    IsVisible="{Binding !IsNewAccount}">Видалити</Button>
+            
+        </WrapPanel>
+        <Grid ColumnDefinitions="4*,6*" RowDefinitions="*,*,*,*,*">
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Назва рахунку"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Баланс"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Balance, Mode=TwoWay}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Група"/>
+            <ComboBox Grid.Row="2" Grid.Column="1"
+                      ItemsSource="{Binding GroupContainer.Collection }"
+                      SelectedItem="{Binding CurrentGroup}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Валюта"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" 
+                      ItemsSource="{Binding  CurrencyContainer.Collection }"
+                      SelectedItem="{Binding CurrentCurrency}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0"
+                       IsVisible="{Binding !IsNewAccount}"
+                       TextWrapping="Wrap" Text="Чи конвертувати баланс при зміні валюти?"/>
+            <CheckBox Grid.Row="4" Grid.Column="1"
+                      IsVisible="{Binding !IsNewAccount}"
+                      IsChecked="{Binding ToConvertWhenUpdate}"/>
+        </Grid>
     </DockPanel>
 </UserControl>

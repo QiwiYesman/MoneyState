@@ -25,6 +25,7 @@ public class GroupPageViewModel: PageBase
     }
     public void GoTransferPage()
     {
+        if (AccountContainer.Collection.Count == 0) return;
         LoadPage(new TransferBalancePageViewModel(Display, AccountContainer.Collection));
     }
     public void GoInsertAccountPage()

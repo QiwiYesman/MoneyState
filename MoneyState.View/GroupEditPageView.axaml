@@ -3,7 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
-             xmlns:entities="clr-namespace:MoneyState.Model.Entities;assembly=MoneyState.Model"
              xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MoneyState.View.GroupEditPageView"
@@ -14,13 +13,14 @@
     <ScrollViewer>
     <DockPanel>
         <TextBlock Text="{Binding ErrorMessage, Mode=TwoWay}" DockPanel.Dock="Bottom"/>
-        <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" VerticalAlignment="Top">
-            <TextBox Text="{Binding NewName}"/>
-            <Button Command="{Binding InsertAsync}">Додати</Button>
-            <Button Command="{Binding UpdateAsync}">Оновити</Button>
-            <Button Command="{Binding RemoveAsync}">Видалити</Button>
-            <Button Command="{Binding Back}">Назад</Button>
+        <WrapPanel Classes="NavigatePanel">
+            <Button Classes="BackButton" Command="{Binding Back}"/>
+            <Button Classes="AddButton" Command="{Binding InsertAsync}">Додати</Button>
+            <Button Classes="NeutralButton" Command="{Binding UpdateAsync}">Оновити</Button>
+            <Button Classes="RemoveButton" Command="{Binding RemoveAsync}">Видалити</Button>
         </WrapPanel>
+        <TextBox DockPanel.Dock="Bottom" Text="{Binding NewName}"/>
+        
         <ListBox 
             ItemsSource="{Binding Groups, Mode=TwoWay}"
             SelectedItem="{Binding CurrentGroup}">

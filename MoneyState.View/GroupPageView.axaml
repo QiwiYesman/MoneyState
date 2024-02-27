@@ -4,18 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:MoneyState.ViewModel;assembly=MoneyState.ViewModel"
              xmlns:observableEntities="clr-namespace:MoneyState.ViewModel.ObservableEntities;assembly=MoneyState.ViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:viewControls="clr-namespace:MoneyState.View.ViewControls"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="650"
              x:Class="MoneyState.View.GroupPageView"
              x:DataType="viewModel:GroupPageViewModel">
     <Design.DataContext>
         <viewModel:GroupPageViewModel/>
     </Design.DataContext>
     <DockPanel>
-        <WrapPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+        <WrapPanel Classes="NavigatePanel">
             <Button Command="{Binding GoEditGroupPage}">Редагувати групи</Button>
+            <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
             <Button Command="{Binding GoInsertAccountPage}">Додати рахунок</Button>
             <Button Command="{Binding GoTransferPage}">Переказ між рахунками</Button>
-            <Button Command="{Binding GoEditCurrencyPage}">Редагувати валюти</Button>
             <Button Command="{Binding GoRegroupPage}">Перегрупувати рахунки</Button>
         </WrapPanel>
         <TabControl ItemsSource="{Binding GroupContainer.Collection}"
@@ -27,17 +28,13 @@
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="observableEntities:ObservableGroup">
-                    <ListBox ItemsSource="{Binding Accounts}">
+                    <ListBox Classes="ButtonList" ItemsSource="{Binding Accounts}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="observableEntities:ObservableAccount">
                                 <Button Command="{Binding 
                                 $parent[TabControl].((viewModel:GroupPageViewModel)DataContext).GoViewAccountPage }"
                                         CommandParameter="{Binding}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}"/>
-                                        <TextBlock Text="{Binding Balance}"/>
-                                        <TextBlock Text="{Binding Currency.Name, FallbackValue=?}"/>
-                                    </StackPanel>
+                                    <viewControls:AccountView Classes="AccountGroupView" Account="{Binding}"/>
                                 </Button>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

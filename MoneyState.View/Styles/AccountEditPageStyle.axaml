@@ -1,0 +1,26 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:MoneyState.View">
+    <Design.PreviewWith>
+        <DockPanel LastChildFill="False">
+            <view:AccountEditPageView DockPanel.Dock="Top" Width="400" Height="600"/>
+        </DockPanel>
+    </Design.PreviewWith>
+    
+    <Style Selector="Grid">
+        <Setter Property="DockPanel.Dock" Value="Top"/>
+        <Style Selector="^ TextBlock:nth-child(odd)">
+            <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+        </Style>
+        <Style Selector="^ ComboBox">
+            <Setter Property="BorderBrush" Value="{StaticResource LightButtonBrush}"/>
+            <Setter Property="BorderThickness" Value="{StaticResource SmallThicknessBottom}"/>
+            <Setter Property="Background" Value="{StaticResource DarkButtonBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource LightButtonBrush}"/>
+            <Style Selector="^  /template/ Path#DropDownGlyph">
+                <Setter Property="Fill" Value="{StaticResource LightButtonBrush}"/>
+            </Style>
+        </Style>
+    </Style>
+    
+</Styles>
