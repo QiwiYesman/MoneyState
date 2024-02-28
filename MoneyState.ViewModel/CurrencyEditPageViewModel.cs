@@ -50,7 +50,8 @@ public class CurrencyEditPageViewModel: EditPageBase
             ErrorMessage = "Введіть десяткове число";
             return;
         }
-        CurrencyContainer.Insert(NewName, ratio); 
+        CurrencyContainer.Insert(NewName, ratio);
+        ErrorMessage = "";
     }
 
   
@@ -79,6 +80,7 @@ public class CurrencyEditPageViewModel: EditPageBase
             CurrentCurrency.Name = NewName;    
         }
         CurrencyContainer.Update(CurrentCurrency);
+        ErrorMessage = "";
     }
     public override void Remove()
     {

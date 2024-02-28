@@ -46,15 +46,33 @@ public class GroupEditPageViewModel: EditPageBase
         set => this.RaiseAndSetIfChanged(ref _currentGroup, value);
     }
 
+    private bool InList()
+    {
+        return Groups.Any(group => group.Name == NewName);
+    }
 
+    private bool IsLastGroup()
+    {
+        return Groups.Count == 1;
+    }
     public override void Insert()
     {
+        if (InList())
+        {
+            ErrorMessage = "Така група вже є";
+            return;
+        }
         GroupContainer.Insert(NewName);
         ErrorMessage = "";
     }
 
     public override void Remove()
     {
+        if (IsLastGroup())
+        {
+            ErrorMessage = "Це остання група!";
+            return;
+        }
         GroupContainer.Delete(CurrentGroup);
         ErrorMessage = "";
         SetCurrentGroupToFirst();
@@ -62,6 +80,11 @@ public class GroupEditPageViewModel: EditPageBase
 
     public override void Update()
     {
+        if (InList())
+        {
+            ErrorMessage = "Така група вже є";
+            return;
+        }
         GroupContainer.Update(CurrentGroup, NewName);
         ErrorMessage = "";
     }

@@ -10,6 +10,6 @@ public class Currency: EntityBase
 
     public override string ToString()
     {
-        return Name + ": " + RatioToUah + " гривень";
+        return Name;
     }
 }

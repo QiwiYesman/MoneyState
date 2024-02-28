@@ -33,7 +33,7 @@ public class AccountContainer<TAccount> :EntityContainerBase<TAccount> where TAc
         var converted = (balanceFrom * from.Currency?.RatioToUah ?? 1) /
                         (to.Currency?.RatioToUah ?? 1);
         ChangeBalance(from, -balanceFrom, "Переведення на рахунок " + to.Name);
-        ChangeBalance(to, converted, "Поповнення з рахунку " + to.Name);
+        ChangeBalance(to, converted, "Поповнення з рахунку " + from.Name);
     }
     public void Insert(string newName, float balance, Group group, Currency currency)
     {

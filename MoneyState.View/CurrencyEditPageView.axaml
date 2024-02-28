@@ -33,8 +33,10 @@
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="observableEntities:ObservableCurrency">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name, StringFormat='Назва: {0}'}   "/>
-                        <TextBlock Text="{Binding RatioToUah, StringFormat='Кількість гривень: {0}'}"/>
+                        <TextBlock Text="{Binding Name}"
+                                   Padding="0 0 10 0"/>
+                        <TextBlock Text="{Binding RatioToUah}"/>
+                        <TextBlock Text="гривень" Padding="7 0 0 0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

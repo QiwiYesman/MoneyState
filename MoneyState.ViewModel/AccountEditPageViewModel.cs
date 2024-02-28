@@ -74,6 +74,7 @@ public class AccountEditPageViewModel : EditPageBase
             return;
         }
         AccountContainer.Insert(Name, balance, CurrentGroup, CurrentCurrency);
+        ErrorMessage = "";
     }
 
     public override void Update()

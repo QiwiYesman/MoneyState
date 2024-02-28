@@ -60,6 +60,7 @@ public class TransferBalancePageViewModel: PageBase
             return;
         }
         AccountContainer.TransferBalance(FromAccount, ToAccount, balance);
+        ErrorMessage = "";
     }
 
     public async void ConfirmAsync() => await Task.Run(Confirm);

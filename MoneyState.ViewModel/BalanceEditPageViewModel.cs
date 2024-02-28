@@ -47,6 +47,7 @@ public class BalanceEditPageViewModel: PageBase
             return;
         }
         AccountContainer.ChangeBalance(Account, -balance, Message);
+        ErrorMessage = "";
         Back();
     }
     public void ConfirmProfit()
@@ -57,6 +58,7 @@ public class BalanceEditPageViewModel: PageBase
             return;
         }
         AccountContainer.ChangeBalance(Account, balance, Message);
+        ErrorMessage = "";
         Back();
     }
 }
